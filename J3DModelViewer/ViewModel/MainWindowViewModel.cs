@@ -130,7 +130,14 @@ namespace J3DRenderer
             ofd.EnsureValidNames = true;
             ofd.Multiselect = false;
             ofd.ShowPlacesList = true;
-            ofd.Filters.Add(new CommonFileDialogFilter("Supported Files (*.bmd, *.bdl, *.bck, *.btk)", "*.bmd,*.bdl,*.bck, *.btk"));
+
+            // If they haven't loaded any models, they can't load any of the associated animation data.
+            string allSupportedExtensions = "*.bmd,*.bdl,*.bck, *.btk";
+            string onlyModelExtensions = "*.bmd, *.bdl";
+
+            string extensions = HasLoadedModel ? allSupportedExtensions : onlyModelExtensions;
+
+            ofd.Filters.Add(new CommonFileDialogFilter(string.Format("Supported Files ({0})", extensions), extensions)); 
             ofd.Filters.Add(new CommonFileDialogFilter("All Files (*.*)", "*.*"));
 
             if (ofd.ShowDialog() == CommonFileDialogResult.Ok)
