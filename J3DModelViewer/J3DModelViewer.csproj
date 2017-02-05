@@ -61,9 +61,6 @@
     <Reference Include="GameFormatReader">
       <HintPath>..\lib\GameFormatReader.dll</HintPath>
     </Reference>
-    <Reference Include="JStudio">
-      <HintPath>..\lib\JStudio.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.WindowsAPICodePack.Core.1.1.0\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
       <Private>True</Private>
@@ -236,7 +233,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\JStudio\JStudio.csproj">
+      <Project>{b90410ae-bb67-4d7a-b4f5-7209cb357a44}</Project>
+      <Name>JStudio</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

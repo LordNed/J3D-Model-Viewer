@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "J3DModelViewer", "J3DModelViewer\J3DModelViewer.csproj", "{9325A8F9-924C-4A20-982A-7142F14BF833}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JStudio", "JStudio\JStudio.csproj", "{B90410AE-BB67-4D7A-B4F5-7209CB357A44}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,14 @@ Global
 		{9325A8F9-924C-4A20-982A-7142F14BF833}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9325A8F9-924C-4A20-982A-7142F14BF833}.Release|x64.ActiveCfg = Release|x64
 		{9325A8F9-924C-4A20-982A-7142F14BF833}.Release|x64.Build.0 = Release|x64
+		{B90410AE-BB67-4D7A-B4F5-7209CB357A44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B90410AE-BB67-4D7A-B4F5-7209CB357A44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B90410AE-BB67-4D7A-B4F5-7209CB357A44}.Debug|x64.ActiveCfg = Debug|x64
+		{B90410AE-BB67-4D7A-B4F5-7209CB357A44}.Debug|x64.Build.0 = Debug|x64
+		{B90410AE-BB67-4D7A-B4F5-7209CB357A44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B90410AE-BB67-4D7A-B4F5-7209CB357A44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B90410AE-BB67-4D7A-B4F5-7209CB357A44}.Release|x64.ActiveCfg = Release|x64
+		{B90410AE-BB67-4D7A-B4F5-7209CB357A44}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

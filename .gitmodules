@@ -1,0 +1,3 @@
+[submodule "JStudio"]
+	path = JStudio
+	url = https://github.com/LordNed/JStudio.git
