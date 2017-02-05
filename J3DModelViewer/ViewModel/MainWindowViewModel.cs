@@ -157,6 +157,7 @@ namespace J3DRenderer
             if (!File.Exists(filePath))
                 Console.WriteLine("Cannot load: \"{0}\", not a file!", filePath);
 
+            string fileName = Path.GetFileNameWithoutExtension(filePath);
             string fileExtension = Path.GetExtension(filePath);
 
             if (string.Compare(fileExtension, ".bdl", true) == 0 || string.Compare(fileExtension, ".bmd", true) == 0)
@@ -168,7 +169,7 @@ namespace J3DRenderer
                     m_loadedModels.Clear();
                 }
 
-                var newModel = new J3D(Path.GetFileNameWithoutExtension(filePath));
+                var newModel = new J3D(fileName);
                 using (EndianBinaryReader reader = new EndianBinaryReader(new FileStream(filePath, FileMode.Open, FileAccess.Read), Endian.Big))
                     newModel.LoadFromStream(reader, true, true);
 
@@ -196,6 +197,9 @@ namespace J3DRenderer
                     if (unloadExisting)
                         MainModel.UnloadBoneAnimations();
                     MainModel.LoadBoneAnimation(filePath);
+
+                    // Automatically play the latest animation loaded.
+                    MainModel.SetBoneAnimation(fileName);
                 }
             }
             else if(string.Compare(fileExtension, ".btk", true) == 0)
@@ -206,8 +210,8 @@ namespace J3DRenderer
                         MainModel.UnloadMaterialAnimations();
                     MainModel.LoadMaterialAnim(filePath);
 
-                    // Since there's no way to play animations with the UI, manually start it.
-                    MainModel.SetMaterialAnimation(Path.GetFileNameWithoutExtension(filePath));
+                    // Automatically play the latest animation loaded.
+                    MainModel.SetMaterialAnimation(fileName);
                 }
             }
 
