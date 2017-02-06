@@ -16,9 +16,8 @@ using System.Collections.Generic;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Collections;
 using JStudio.Framework;
-using J3DRenderer.ViewModel;
 
-namespace J3DRenderer
+namespace J3DRenderer.ViewModel
 {
     class MainWindowViewModel : INotifyPropertyChanged
     {

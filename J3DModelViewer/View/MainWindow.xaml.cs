@@ -1,4 +1,5 @@
-﻿using OpenTK;
+﻿using J3DRenderer.ViewModel;
+using OpenTK;
 using OpenTK.Graphics;
 using System;
 using System.Collections.Generic;

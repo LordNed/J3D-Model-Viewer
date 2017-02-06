@@ -15,7 +15,7 @@
     </Window.InputBindings>
     
     <Window.DataContext>
-        <local:MainWindowViewModel/>
+        <viewmodel:MainWindowViewModel/>
     </Window.DataContext>
 
     <Window.Resources>

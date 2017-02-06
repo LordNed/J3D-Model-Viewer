@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace J3DRenderer
+namespace J3DRenderer.ViewModel
 {
     public class ModelRenderOptionsViewModel : INotifyPropertyChanged
     {
