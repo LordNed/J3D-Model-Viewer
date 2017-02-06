@@ -69,7 +69,7 @@
         <!-- Main Application Grid -->
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="250" MinWidth="250"/>
+                <ColumnDefinition Width="300" MinWidth="250"/>
                 <ColumnDefinition Width="5"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="5"/>
@@ -78,8 +78,16 @@
 
             <!-- Left Info -->
             <Grid Grid.Column="0">
-                <ItemsControl HorizontalContentAlignment="Stretch">
-                    <GroupBox Header="Header" DataContext="{Binding Path=MainModel}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="5"/> <!-- Splitter -->
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <!-- J3D Header Info -->
+                    <GroupBox Grid.Row="0" Header="Header" DataContext="{Binding Path=MainModel}">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -105,12 +113,14 @@
                             <Label Grid.Column="1" Grid.Row="2" Content="{Binding Path=TotalFileSize}"/>
                         </Grid>
                     </GroupBox>
-
-                    <GroupBox Header="INF1 Section">
+                    
+                    
+                    <!-- INF1 Data (Scenegraph) -->
+                    <GroupBox Grid.Row="1" Header="INF1 Section">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto" MinHeight="120"/>
+                                <RowDefinition Height="*" MinHeight="120"/>
                             </Grid.RowDefinitions>
                             <!-- Info Header -->
                             <Grid Grid.Row="0" DataContext="{Binding Path=MainModel.INF1Tag}">
@@ -148,9 +158,12 @@
                             </TreeView>
                         </Grid>
                     </GroupBox>
+                    
+                    <!-- Splitter -->
+                    <GridSplitter Grid.Row="2" Height="5" HorizontalAlignment="Stretch"/>
 
                     <!-- VTX 1 Section-->
-                    <GroupBox Header="VTX1 Section" HorizontalAlignment="Stretch" DataContext="{Binding Path=MainModel.VTX1Tag}">
+                    <GroupBox Grid.Row="3"  Header="VTX1 Section" HorizontalAlignment="Stretch" DataContext="{Binding Path=MainModel.VTX1Tag}">
                         <ListBox ItemsSource="{Binding Path=VertexFormats}" MaxHeight="400" MinHeight="35">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
@@ -188,8 +201,7 @@
                             </ListBox.ItemTemplate>
                         </ListBox>
                     </GroupBox>
-                </ItemsControl>
-
+                </Grid>
             </Grid>
 
             <!-- Left Splitter -->
