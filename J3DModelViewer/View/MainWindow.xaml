@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:J3DRenderer"
         xmlns:wcommon="clr-namespace:WindEditor.WPF;assembly=WCommon"
         xmlns:jstudio="clr-namespace:JStudio.J3D;assembly=JStudio"
+        xmlns:viewmodel="clr-namespace:J3DRenderer.ViewModel"
         xmlns:wpfToolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="J3D Model Viewer" Height="720" Width="1280" Loaded="Window_Loaded" AllowDrop="True" Drop="Window_Drop" Icon="/J3DRenderer;component/resources/application_icon.ico">
@@ -24,7 +25,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="32"/>
+            <RowDefinition Height="0"/> <!-- Placeholder Row for Toolbar Buttons -->
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -76,9 +77,9 @@
             </Grid.ColumnDefinitions>
 
             <!-- Left Info -->
-            <Grid Grid.Column="0" DataContext="{Binding Path=MainModel}">
+            <Grid Grid.Column="0">
                 <ItemsControl HorizontalContentAlignment="Stretch">
-                    <GroupBox Header="Header">
+                    <GroupBox Header="Header" DataContext="{Binding Path=MainModel}">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -105,14 +106,14 @@
                         </Grid>
                     </GroupBox>
 
-                    <GroupBox Header="INF1 Section" DataContext="{Binding Path=INF1Tag}">
+                    <GroupBox Header="INF1 Section">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto" MinHeight="120"/>
                             </Grid.RowDefinitions>
                             <!-- Info Header -->
-                            <Grid Grid.Row="0">
+                            <Grid Grid.Row="0" DataContext="{Binding Path=MainModel.INF1Tag}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
@@ -138,9 +139,9 @@
                             </Grid>
 
                             <!-- Treeview -->
-                            <TreeView Grid.Row="1" MinHeight="45" ItemsSource="{Binding Path=HierarchyRoot.Children}">
+                            <TreeView Grid.Row="1" MinHeight="45" ItemsSource="{Binding Path=MainScenegraph.Children}">
                                 <TreeView.ItemTemplate>
-                                    <HierarchicalDataTemplate ItemsSource="{Binding Path=Children}" DataType="{x:Type jstudio:HierarchyNode}">
+                                    <HierarchicalDataTemplate ItemsSource="{Binding Path=Children}" DataType="{x:Type viewmodel:SceneGraphViewModel}">
                                         <TextBlock Text="{Binding}"/>
                                     </HierarchicalDataTemplate>
                                 </TreeView.ItemTemplate>
@@ -149,7 +150,7 @@
                     </GroupBox>
 
                     <!-- VTX 1 Section-->
-                    <GroupBox Header="VTX1 Section" HorizontalAlignment="Stretch" DataContext="{Binding Path=VTX1Tag}">
+                    <GroupBox Header="VTX1 Section" HorizontalAlignment="Stretch" DataContext="{Binding Path=MainModel.VTX1Tag}">
                         <ListBox ItemsSource="{Binding Path=VertexFormats}" MaxHeight="400" MinHeight="35">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>

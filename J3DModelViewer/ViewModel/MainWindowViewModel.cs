@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Collections;
 using JStudio.Framework;
+using J3DRenderer.ViewModel;
 
 namespace J3DRenderer
 {
@@ -25,7 +26,7 @@ namespace J3DRenderer
 
         public bool HasLoadedModel { get { return m_loadedModels.Count > 0; } }
         public J3D MainModel { get { return m_loadedModels.Count > 0 ? m_loadedModels[0] : null; } }
-
+        public SceneGraphViewModel MainScenegraph { get { return m_sceneGraphs.Count > 0 ? m_sceneGraphs[0] : null; } }
         public ModelRenderOptionsViewModel ViewOptions { get { return m_modelRenderOptions; } }
         public HighresScreenshotViewModel HighResScreenshot { get { return m_highresScreenshot; } }
 
@@ -51,6 +52,7 @@ namespace J3DRenderer
         private WFrameBuffer m_frameBuffer;
 
         private List<J3D> m_loadedModels;
+        private List<SceneGraphViewModel> m_sceneGraphs;
 
         GXLight m_mainLight;
         GXLight m_secondaryLight;
@@ -70,6 +72,8 @@ namespace J3DRenderer
 
             m_renderCamera = new WCamera();
             m_loadedModels = new List<J3D>();
+            m_sceneGraphs = new List<SceneGraphViewModel>();
+
             m_renderCamera.Transform.Position = new Vector3(500, 75, 500);
             m_renderCamera.Transform.Rotation = Quaternion.FromAxisAngle(Vector3.UnitY, WMath.DegreesToRadians(45f));
             m_dtStopwatch = new System.Diagnostics.Stopwatch();
@@ -150,7 +154,9 @@ namespace J3DRenderer
         {
             foreach (var j3d in m_loadedModels)
                 j3d.Dispose();
+
             m_loadedModels.Clear();
+            m_sceneGraphs.Clear();
         }
 
         private void OnUserRequestApplicationExit()
@@ -174,6 +180,7 @@ namespace J3DRenderer
                     foreach (var model in m_loadedModels)
                         model.Dispose();
                     m_loadedModels.Clear();
+                    m_sceneGraphs.Clear();
                 }
 
                 var newModel = new J3D(fileName);
@@ -196,6 +203,7 @@ namespace J3DRenderer
                 newModel.SetColorWriteOverride("mayuRdamB", false);
 
                 m_loadedModels.Add(newModel);
+                m_sceneGraphs.Add(new SceneGraphViewModel(newModel, newModel.INF1Tag.HierarchyRoot, ""));
             }
             else if (string.Compare(fileExtension, ".bck", true) == 0)
             {
@@ -225,6 +233,7 @@ namespace J3DRenderer
             if (PropertyChanged != null)
             {
                 PropertyChanged.Invoke(this, new PropertyChangedEventArgs("MainModel"));
+                PropertyChanged.Invoke(this, new PropertyChangedEventArgs("MainScenegraph"));
                 PropertyChanged.Invoke(this, new PropertyChangedEventArgs("HasLoadedModel"));
             }
         }
