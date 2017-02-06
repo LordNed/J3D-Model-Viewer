@@ -1,4 +1,4 @@
-﻿using J3DRenderer.ViewModel;
+﻿using J3DModelViewer.ViewModel;
 using OpenTK;
 using OpenTK.Graphics;
 using System;
@@ -17,7 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WindEditor;
 
-namespace J3DRenderer
+namespace J3DModelViewer
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

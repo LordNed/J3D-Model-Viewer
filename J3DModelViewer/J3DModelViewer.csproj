@@ -7,8 +7,8 @@
     <ProjectGuid>{9325A8F9-924C-4A20-982A-7142F14BF833}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>J3DRenderer</RootNamespace>
-    <AssemblyName>J3DRenderer</AssemblyName>
+    <RootNamespace>J3DModelViewer</RootNamespace>
+    <AssemblyName>J3DModelViewer</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

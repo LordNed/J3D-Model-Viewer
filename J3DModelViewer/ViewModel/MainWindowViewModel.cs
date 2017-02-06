@@ -6,7 +6,7 @@ using GameFormatReader.Common;
 using System.ComponentModel;
 using JStudio.J3D;
 using JStudio.OpenGL;
-using J3DRenderer.Framework;
+using J3DModelViewer.Framework;
 using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
@@ -14,10 +14,9 @@ using System.Windows.Input;
 using System.Windows;
 using System.Collections.Generic;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using System.Collections;
 using JStudio.Framework;
 
-namespace J3DRenderer.ViewModel
+namespace J3DModelViewer.ViewModel
 {
     class MainWindowViewModel : INotifyPropertyChanged
     {

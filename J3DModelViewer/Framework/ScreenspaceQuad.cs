@@ -3,7 +3,7 @@ using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System;
 
-namespace J3DRenderer.Framework
+namespace J3DModelViewer.Framework
 {
     public class ScreenspaceQuad
     {

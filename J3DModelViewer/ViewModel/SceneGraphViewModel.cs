@@ -1,7 +1,7 @@
 ﻿using JStudio.J3D;
 using System.Collections.ObjectModel;
 
-namespace J3DRenderer.ViewModel
+namespace J3DModelViewer.ViewModel
 {
     /// <summary>
     /// Small wrapper class for the <see cref="HierarchyNode"/> class in <see cref="J3D"/>. This allows us to

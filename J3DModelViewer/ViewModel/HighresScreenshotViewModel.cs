@@ -2,7 +2,7 @@
 using System.Windows.Input;
 using WindEditor;
 
-namespace J3DRenderer.ViewModel
+namespace J3DModelViewer.ViewModel
 {
     public class HighresScreenshotViewModel : INotifyPropertyChanged
     {
