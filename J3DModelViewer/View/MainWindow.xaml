@@ -91,136 +91,117 @@
                 <TabItem Header="Previewer">
                     <ScrollViewer>
                         <ItemsControl IsEnabled="{Binding Path=HasLoadedModel}">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="5"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
+                            <GroupBox Header="Animations">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*" MinHeight="20"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*" MinHeight="20"/>
+                                    </Grid.RowDefinitions>
 
-                                <Grid Grid.Row="0">
-                                    <GroupBox Header="Animations">
-                                        <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="*" MinHeight="20"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="*" MinHeight="20"/>
-                                            </Grid.RowDefinitions>
+                                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                        <Label Content="Number of loaded Bone Animations:"/>
+                                        <Label Content="{Binding Path=MainModel.BoneAnimations.Count}"/>
+                                    </StackPanel>
 
-                                            <StackPanel Grid.Row="0" Orientation="Horizontal">
-                                                <Label Content="Number of loaded Bone Animations:"/>
-                                                <Label Content="{Binding Path=MainModel.BoneAnimations.Count}"/>
-                                            </StackPanel>
+                                    <DataGrid Grid.Row="1" ItemsSource="{Binding Path=MainModel.BoneAnimations}" SelectedItem="{Binding Path=MainModel.CurrentBoneAnimation}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="*"/>
+                                            <DataGridTextColumn Header="Bone Count" Binding="{Binding Path=BoneCount}" Width="Auto"/>
+                                            <DataGridComboBoxColumn Header="Loop Mode" ItemsSource="{Binding Source={StaticResource J3DAnimLoopEnumData}}" SelectedValueBinding="{Binding Path=LoopMode}" Width="Auto"/>
+                                            <DataGridTextColumn Header="Length" Binding="{Binding Path=AnimLengthInSeconds}" Width="Auto"/>
+                                            <DataGridTextColumn Header="Type" Binding="{Binding Path=AnimType}" Width="Auto"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
 
-                                            <DataGrid Grid.Row="1" ItemsSource="{Binding Path=MainModel.BoneAnimations}" SelectedItem="{Binding Path=MainModel.CurrentBoneAnimation}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column">
-                                                <DataGrid.Columns>
-                                                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="*"/>
-                                                    <DataGridTextColumn Header="Bone Count" Binding="{Binding Path=BoneCount}" Width="Auto"/>
-                                                    <DataGridComboBoxColumn Header="Loop Mode" ItemsSource="{Binding Source={StaticResource J3DAnimLoopEnumData}}" SelectedValueBinding="{Binding Path=LoopMode}" Width="Auto"/>
-                                                    <DataGridTextColumn Header="Length" Binding="{Binding Path=AnimLengthInSeconds}" Width="Auto"/>
-                                                    <DataGridTextColumn Header="Type" Binding="{Binding Path=AnimType}" Width="Auto"/>
-                                                </DataGrid.Columns>
-                                            </DataGrid>
-                                            
-                                            <StackPanel Grid.Row="2" Orientation="Horizontal">
-                                                <Label Content="Number of loaded Material Animations:"/>
-                                                <Label Content="{Binding Path=MainModel.MaterialAnimations.Count}"/>
-                                            </StackPanel>
+                                    <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                        <Label Content="Number of loaded Material Animations:"/>
+                                        <Label Content="{Binding Path=MainModel.MaterialAnimations.Count}"/>
+                                    </StackPanel>
 
-                                            <DataGrid Grid.Row="3" ItemsSource="{Binding Path=MainModel.MaterialAnimations}" SelectedItem="{Binding Path=MainModel.CurrentMaterialAnimation}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column">
-                                                <DataGrid.Columns>
-                                                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="*"/>
-                                                    <DataGridComboBoxColumn Header="Loop Mode" ItemsSource="{Binding Source={StaticResource J3DAnimLoopEnumData}}" SelectedValueBinding="{Binding Path=LoopMode}" Width="Auto"/>
-                                                    <DataGridTextColumn Header="Length" Binding="{Binding Path=AnimLengthInSeconds}" Width="Auto"/>
-                                                    <DataGridTextColumn Header="Type" Binding="{Binding Path=AnimType}" Width="Auto"/>
-                                                </DataGrid.Columns>
-                                            </DataGrid>
-                                        </Grid>
-                                    </GroupBox>
+                                    <DataGrid Grid.Row="3" ItemsSource="{Binding Path=MainModel.MaterialAnimations}" SelectedItem="{Binding Path=MainModel.CurrentMaterialAnimation}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="*"/>
+                                            <DataGridComboBoxColumn Header="Loop Mode" ItemsSource="{Binding Source={StaticResource J3DAnimLoopEnumData}}" SelectedValueBinding="{Binding Path=LoopMode}" Width="Auto"/>
+                                            <DataGridTextColumn Header="Length" Binding="{Binding Path=AnimLengthInSeconds}" Width="Auto"/>
+                                            <DataGridTextColumn Header="Type" Binding="{Binding Path=AnimType}" Width="Auto"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
                                 </Grid>
+                            </GroupBox>
+                            <GroupBox Header="TEV Color Overrides" DataContext="{Binding Path=MainModel.TevColorOverrides}">
+                                <ItemsControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                    <TextBlock Padding="2" TextWrapping="Wrap" Text="Set the enabled/disable status and value of TEV Color and kColor."/>
+                                    <Separator/>
+                                    <!-- TEV Register Colors-->
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="120"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="120"/>
+                                        </Grid.ColumnDefinitions>
 
-                                <GridSplitter Grid.Row="1" VerticalContentAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <CheckBox Grid.Row="0" Grid.Column="0" IsChecked="{Binding Path=ColorsEnabled[0]}" Content="Color 0" Margin="3,3,0,0"/>
+                                        <wpfToolkit:ColorPicker Grid.Row="0" Grid.Column="1" IsEnabled="{Binding Path=ColorsEnabled[0]}" SelectedColor="{Binding Path=Colors[0], Converter={StaticResource LinearToSystemColorConverter}}" ColorMode="ColorCanvas" ShowAdvancedButton="False" HorizontalAlignment="Stretch"/>
 
-                                <Grid Grid.Row="2" Name="scv">
-                                    <GroupBox Header="TEV Color Overrides" DataContext="{Binding Path=MainModel.TevColorOverrides}">
-                                        <ItemsControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                                            <TextBlock Padding="2" TextWrapping="Wrap" Text="Set the enabled/disable status and value of TEV Color and kColor."/>
-                                            <Separator/>
-                                            <!-- TEV Register Colors-->
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="120"/>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="120"/>
-                                                </Grid.ColumnDefinitions>
+                                        <CheckBox Grid.Row="0" Grid.Column="2" IsChecked="{Binding Path=ColorsEnabled[1]}" Content="Color 1" Margin="3,3,0,0"/>
+                                        <wpfToolkit:ColorPicker Grid.Row="0" Grid.Column="3" IsEnabled="{Binding Path=ColorsEnabled[1]}" SelectedColor="{Binding Path=Colors[1], Converter={StaticResource LinearToSystemColorConverter}}" ColorMode="ColorCanvas" ShowAdvancedButton="False" HorizontalAlignment="Stretch"/>
 
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                </Grid.RowDefinitions>
-                                                <CheckBox Grid.Row="0" Grid.Column="0" IsChecked="{Binding Path=ColorsEnabled[0]}" Content="Color 0" Margin="3,3,0,0"/>
-                                                <wpfToolkit:ColorPicker Grid.Row="0" Grid.Column="1" IsEnabled="{Binding Path=ColorsEnabled[0]}" SelectedColor="{Binding Path=Colors[0], Converter={StaticResource LinearToSystemColorConverter}}" ColorMode="ColorCanvas" ShowAdvancedButton="False" HorizontalAlignment="Stretch"/>
+                                        <CheckBox Grid.Row="1" Grid.Column="0" IsChecked="{Binding Path=ColorsEnabled[2]}" Content="Color 2" Margin="3,3,0,0"/>
+                                        <wpfToolkit:ColorPicker Grid.Row="1" Grid.Column="1" IsEnabled="{Binding Path=ColorsEnabled[2]}" SelectedColor="{Binding Path=Colors[2], Converter={StaticResource LinearToSystemColorConverter}}" ColorMode="ColorCanvas" ShowAdvancedButton="False" HorizontalAlignment="Stretch"/>
 
-                                                <CheckBox Grid.Row="0" Grid.Column="2" IsChecked="{Binding Path=ColorsEnabled[1]}" Content="Color 1" Margin="3,3,0,0"/>
-                                                <wpfToolkit:ColorPicker Grid.Row="0" Grid.Column="3" IsEnabled="{Binding Path=ColorsEnabled[1]}" SelectedColor="{Binding Path=Colors[1], Converter={StaticResource LinearToSystemColorConverter}}" ColorMode="ColorCanvas" ShowAdvancedButton="False" HorizontalAlignment="Stretch"/>
+                                        <CheckBox Grid.Row="1" Grid.Column="2" IsChecked="{Binding Path=ColorsEnabled[3]}" Content="Color 3" Margin="3,3,0,0"/>
+                                        <wpfToolkit:ColorPicker Grid.Row="1" Grid.Column="3" IsEnabled="{Binding Path=ColorsEnabled[3]}" SelectedColor="{Binding Path=Colors[3], Converter={StaticResource LinearToSystemColorConverter}}" ColorMode="ColorCanvas" ShowAdvancedButton="False" HorizontalAlignment="Stretch"/>
+                                    </Grid>
+                                    <Separator/>
+                                    <!-- TEV Const Colors -->
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="120"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="120"/>
+                                        </Grid.ColumnDefinitions>
 
-                                                <CheckBox Grid.Row="1" Grid.Column="0" IsChecked="{Binding Path=ColorsEnabled[2]}" Content="Color 2" Margin="3,3,0,0"/>
-                                                <wpfToolkit:ColorPicker Grid.Row="1" Grid.Column="1" IsEnabled="{Binding Path=ColorsEnabled[2]}" SelectedColor="{Binding Path=Colors[2], Converter={StaticResource LinearToSystemColorConverter}}" ColorMode="ColorCanvas" ShowAdvancedButton="False" HorizontalAlignment="Stretch"/>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <CheckBox Grid.Row="0" Grid.Column="0" IsChecked="{Binding Path=ConstColorsEnabled[0]}" Content="kColor 0" Margin="3,3,0,0"/>
+                                        <wpfToolkit:ColorPicker Grid.Row="0" Grid.Column="1" IsEnabled="{Binding Path=ConstColorsEnabled[0]}" SelectedColor="{Binding Path=ConstColors[0], Converter={StaticResource LinearToSystemColorConverter}}" ColorMode="ColorCanvas" ShowAdvancedButton="False" HorizontalAlignment="Stretch"/>
 
-                                                <CheckBox Grid.Row="1" Grid.Column="2" IsChecked="{Binding Path=ColorsEnabled[3]}" Content="Color 3" Margin="3,3,0,0"/>
-                                                <wpfToolkit:ColorPicker Grid.Row="1" Grid.Column="3" IsEnabled="{Binding Path=ColorsEnabled[3]}" SelectedColor="{Binding Path=Colors[3], Converter={StaticResource LinearToSystemColorConverter}}" ColorMode="ColorCanvas" ShowAdvancedButton="False" HorizontalAlignment="Stretch"/>
-                                            </Grid>
-                                            <Separator/>
-                                            <!-- TEV Const Colors -->
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="120"/>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="120"/>
-                                                </Grid.ColumnDefinitions>
+                                        <CheckBox Grid.Row="0" Grid.Column="2" IsChecked="{Binding Path=ConstColorsEnabled[1]}" Content="kColor 1" Margin="3,3,0,0"/>
+                                        <wpfToolkit:ColorPicker Grid.Row="0" Grid.Column="3" IsEnabled="{Binding Path=ConstColorsEnabled[1]}" SelectedColor="{Binding Path=ConstColors[1], Converter={StaticResource LinearToSystemColorConverter}}" ColorMode="ColorCanvas" ShowAdvancedButton="False" HorizontalAlignment="Stretch"/>
 
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                </Grid.RowDefinitions>
-                                                <CheckBox Grid.Row="0" Grid.Column="0" IsChecked="{Binding Path=ConstColorsEnabled[0]}" Content="kColor 0" Margin="3,3,0,0"/>
-                                                <wpfToolkit:ColorPicker Grid.Row="0" Grid.Column="1" IsEnabled="{Binding Path=ConstColorsEnabled[0]}" SelectedColor="{Binding Path=ConstColors[0], Converter={StaticResource LinearToSystemColorConverter}}" ColorMode="ColorCanvas" ShowAdvancedButton="False" HorizontalAlignment="Stretch"/>
+                                        <CheckBox Grid.Row="1" Grid.Column="0" IsChecked="{Binding Path=ConstColorsEnabled[2]}" Content="kColor 2" Margin="3,3,0,0"/>
+                                        <wpfToolkit:ColorPicker Grid.Row="1" Grid.Column="1" IsEnabled="{Binding Path=ConstColorsEnabled[2]}" SelectedColor="{Binding Path=ConstColors[2], Converter={StaticResource LinearToSystemColorConverter}}" ColorMode="ColorCanvas" ShowAdvancedButton="False" HorizontalAlignment="Stretch"/>
 
-                                                <CheckBox Grid.Row="0" Grid.Column="2" IsChecked="{Binding Path=ConstColorsEnabled[1]}" Content="kColor 1" Margin="3,3,0,0"/>
-                                                <wpfToolkit:ColorPicker Grid.Row="0" Grid.Column="3" IsEnabled="{Binding Path=ConstColorsEnabled[1]}" SelectedColor="{Binding Path=ConstColors[1], Converter={StaticResource LinearToSystemColorConverter}}" ColorMode="ColorCanvas" ShowAdvancedButton="False" HorizontalAlignment="Stretch"/>
-
-                                                <CheckBox Grid.Row="1" Grid.Column="0" IsChecked="{Binding Path=ConstColorsEnabled[2]}" Content="kColor 2" Margin="3,3,0,0"/>
-                                                <wpfToolkit:ColorPicker Grid.Row="1" Grid.Column="1" IsEnabled="{Binding Path=ConstColorsEnabled[2]}" SelectedColor="{Binding Path=ConstColors[2], Converter={StaticResource LinearToSystemColorConverter}}" ColorMode="ColorCanvas" ShowAdvancedButton="False" HorizontalAlignment="Stretch"/>
-
-                                                <CheckBox Grid.Row="1" Grid.Column="2" IsChecked="{Binding Path=ConstColorsEnabled[3]}" Content="kColor 3" Margin="3,3,0,0"/>
-                                                <wpfToolkit:ColorPicker Grid.Row="1" Grid.Column="3" IsEnabled="{Binding Path=ConstColorsEnabled[3]}" SelectedColor="{Binding Path=ConstColors[3], Converter={StaticResource LinearToSystemColorConverter}}" ColorMode="ColorCanvas" ShowAdvancedButton="False" HorizontalAlignment="Stretch"/>
-                                            </Grid>
-                                        </ItemsControl>
-                                    </GroupBox>
-                                </Grid>
-
-                                <Grid Grid.Row="3">
-                                    <GroupBox Header="High Resolution Screenshot" DataContext="{Binding Path=HighResScreenshot}">
-                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                            <TextBlock Padding="2" Text="The slider below sets the multiplier for the resolution of the current viewport." TextWrapping="wrap"/>
-                                            <TextBlock Padding="2" Text="Screenshots are saved next to the application directory." TextWrapping="wrap"/>
-                                            <Separator/>
-                                            <DockPanel HorizontalAlignment="Stretch">
-                                                <Label DockPanel.Dock="Left" Content="Screenshot Size Multiplier"/>
-                                                <TextBox DockPanel.Dock="Right" Text="{Binding Path=ResolutionMultiplier}" Padding="2" Margin="2"/>
-                                                <Slider DockPanel.Dock="Right" Value="{Binding Path=ResolutionMultiplier}" Minimum="1" Maximum="8" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="TopLeft" HorizontalAlignment="Stretch"/>
-                                            </DockPanel>
-                                            <DockPanel HorizontalAlignment="Stretch">
-                                                <Button DockPanel.Dock="Right" Content="Screenshot" Command="{Binding Path=OnUserRequestScreenshot}"/>
-                                            </DockPanel>
-                                        </StackPanel>
-                                    </GroupBox>
-                                </Grid>
-                            </Grid>
+                                        <CheckBox Grid.Row="1" Grid.Column="2" IsChecked="{Binding Path=ConstColorsEnabled[3]}" Content="kColor 3" Margin="3,3,0,0"/>
+                                        <wpfToolkit:ColorPicker Grid.Row="1" Grid.Column="3" IsEnabled="{Binding Path=ConstColorsEnabled[3]}" SelectedColor="{Binding Path=ConstColors[3], Converter={StaticResource LinearToSystemColorConverter}}" ColorMode="ColorCanvas" ShowAdvancedButton="False" HorizontalAlignment="Stretch"/>
+                                    </Grid>
+                                </ItemsControl>
+                            </GroupBox>
+                            <GroupBox Header="High Resolution Screenshot" DataContext="{Binding Path=HighResScreenshot}">
+                                <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                    <TextBlock Padding="2" Text="The slider below sets the multiplier for the resolution of the current viewport." TextWrapping="wrap"/>
+                                    <TextBlock Padding="2" Text="Screenshots are saved next to the application directory." TextWrapping="wrap"/>
+                                    <Separator/>
+                                    <DockPanel HorizontalAlignment="Stretch">
+                                        <Label DockPanel.Dock="Left" Content="Screenshot Size Multiplier"/>
+                                        <TextBox DockPanel.Dock="Right" Text="{Binding Path=ResolutionMultiplier}" Padding="2" Margin="2"/>
+                                        <Slider DockPanel.Dock="Right" Value="{Binding Path=ResolutionMultiplier}" Minimum="1" Maximum="8" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="TopLeft" HorizontalAlignment="Stretch"/>
+                                    </DockPanel>
+                                    <DockPanel HorizontalAlignment="Stretch">
+                                        <Button DockPanel.Dock="Right" Content="Screenshot" Command="{Binding Path=OnUserRequestScreenshot}"/>
+                                    </DockPanel>
+                                </StackPanel>
+                            </GroupBox>
                         </ItemsControl>
                     </ScrollViewer>
                 </TabItem>
