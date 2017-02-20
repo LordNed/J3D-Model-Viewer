@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:J3DModelViewer"
+        xmlns:local.converters="clr-namespace:J3DModelViewer.Converters"
         xmlns:wcommon="clr-namespace:WindEditor.WPF;assembly=WCommon"
         xmlns:jstudio="clr-namespace:JStudio.J3D;assembly=JStudio"
         xmlns:jstudio.animation="clr-namespace:JStudio.J3D.Animation;assembly=JStudio"
@@ -22,6 +23,7 @@
 
     <Window.Resources>
         <wcommon:LinearToSystemColorConverter x:Key="LinearToSystemColorConverter"/>
+        <local.converters:VertexFormatDataTypeConverter x:Key="VTX1DataTypeToStringConverter"/>
         <ObjectDataProvider x:Key="J3DAnimLoopEnumData" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
             <ObjectDataProvider.MethodParameters>
                 <x:Type TypeName="jstudio.animation:LoopType"/>
@@ -206,33 +208,20 @@
                     </ScrollViewer>
                 </TabItem>
                 <TabItem Header="Info">
-                    <ItemsControl>
+                    <ScrollViewer>
+                        <ItemsControl>
                         <!-- J3D Header Info -->
                         <GroupBox Header="Header" DataContext="{Binding Path=MainModel}">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
+                            <UniformGrid Columns="2" Rows="3">
+                                <Label Content="Magic:"/>
+                                <Label Content="{Binding Path=Magic}"/>
 
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
+                                <Label Content="JStudio Type:"/>
+                                <Label Content="{Binding Path=StudioType}"/>
 
-                                <Label Grid.Column="0" Grid.Row="0" Content="Magic:"/>
-                                <Label Grid.Column="1" Grid.Row="0" Content="{Binding Path=Magic}"/>
-
-                                <Label Grid.Column="0" Grid.Row="1" Content="JStudio Type:"/>
-                                <Label Grid.Column="1" Grid.Row="1" Content="{Binding Path=StudioType}"/>
-
-                                <Label Grid.Column="0" Grid.Row="2" Content="Total File Size:"/>
-                                <Label Grid.Column="1" Grid.Row="2" Content="{Binding Path=TotalFileSize}"/>
-                            </Grid>
+                                <Label Content="Total File Size:"/>
+                                <Label Content="{Binding Path=TotalFileSize}"/>
+                            </UniformGrid>
                         </GroupBox>
 
                         <!-- INF1 Data (Scenegraph) -->
@@ -241,32 +230,20 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="*" MinHeight="120"/>
+                                    <RowDefinition Height="Auto"/>
+
                                 </Grid.RowDefinitions>
                                 <!-- Info Header -->
-                                <Grid Grid.Row="0" DataContext="{Binding Path=MainModel.INF1Tag}">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
+                                <UniformGrid Grid.Row="0" DataContext="{Binding Path=MainModel.INF1Tag}" Columns="2">
+                                    <Label Content="Unknown 1:"/>
+                                    <Label Content="{Binding Path=Unknown1}"/>
 
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
+                                    <Label Content="Packet Count:"/>
+                                    <Label Content="{Binding Path=PacketCount}"/>
 
-                                    <Label Grid.Column="0" Grid.Row="0" Content="Unknown 1:"/>
-                                    <Label Grid.Column="1" Grid.Row="0" Content="{Binding Path=Unknown1}"/>
-
-                                    <Label Grid.Column="0" Grid.Row="1" Content="Packet Count:"/>
-                                    <Label Grid.Column="1" Grid.Row="1" Content="{Binding Path=PacketCount}"/>
-
-                                    <Label Grid.Column="0" Grid.Row="2" Content="Vertex Count:"/>
-                                    <Label Grid.Column="1" Grid.Row="2" Content="{Binding Path=VertexCount}"/>
-                                </Grid>
+                                    <Label Content="Vertex Count:"/>
+                                    <Label Content="{Binding Path=VertexCount}"/>
+                                </UniformGrid>
 
                                 <!-- Treeview -->
                                 <TreeView Grid.Row="1" MinHeight="45" ItemsSource="{Binding Path=MainScenegraph.Children}">
@@ -276,52 +253,25 @@
                                         </HierarchicalDataTemplate>
                                     </TreeView.ItemTemplate>
                                 </TreeView>
+
+                            <!-- Splitter -->
+                                <GridSplitter Grid.Row="2" Height="5" HorizontalAlignment="Stretch"/>
                             </Grid>
                         </GroupBox>
 
-                        <!-- Splitter -->
-                        <!-- <GridSplitter Grid.Row="2" Height="5" HorizontalAlignment="Stretch"/> -->
-
                         <!-- VTX 1 Section -->
                         <GroupBox  Header="VTX1 Section" DataContext="{Binding Path=MainModel.VTX1Tag}">
-                            <ListBox ItemsSource="{Binding Path=VertexFormats}" MaxHeight="400" MinHeight="35">
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="*"/>
-                                            </Grid.ColumnDefinitions>
-
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
-
-                                            <Label Grid.Column="0" Grid.Row="0" Content="Array Type:"/>
-                                            <Label Grid.Column="1" Grid.Row="0" Content="{Binding Path=ArrayType}"/>
-
-                                            <Label Grid.Column="0" Grid.Row="1" Content="Component Count:"/>
-                                            <Label Grid.Column="1" Grid.Row="1" Content="{Binding Path=ComponentCount}"/>
-
-                                            <Label Grid.Column="0" Grid.Row="2" Content="Data Type:"/>
-                                            <!--<Label Grid.Column="1" Grid.Row="2" Content="{Binding Path=DataType}"/>-->
-
-                                            <Label Grid.Column="0" Grid.Row="3" Content="Color Type:"/>
-                                            <!--<Label Grid.Column="1" Grid.Row="3" Content="{Binding Path=ColorDataType}"/>-->
-
-                                            <Label Grid.Column="0" Grid.Row="4" Content="Decimal Point:"/>
-                                            <Label Grid.Column="1" Grid.Row="4" Content="{Binding Path=DecimalPoint}"/>
-
-                                        </Grid>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
+                            <DataGrid Grid.Row="3" ItemsSource="{Binding Path=VertexFormats}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Array Type" Binding="{Binding Path=ArrayType}" Width="Auto"/>
+                                    <DataGridTextColumn Header="Component Count" Binding="{Binding Path=ComponentCount}" Width="Auto"/>
+                                    <DataGridTextColumn Header="Decimal Point" Binding="{Binding Path=DecimalPoint}" Width="Auto"/>
+                                    <DataGridTextColumn Header="Data Type" Binding="{Binding Path=., Converter={StaticResource VTX1DataTypeToStringConverter}}" Width="Auto"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
                         </GroupBox>
                     </ItemsControl>
+                    </ScrollViewer>
                 </TabItem>
 
                 <TabItem Header="Material Editor">
