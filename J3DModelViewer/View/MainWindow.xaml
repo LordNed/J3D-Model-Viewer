@@ -3,9 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:J3DModelViewer"
         xmlns:wcommon="clr-namespace:WindEditor.WPF;assembly=WCommon"
         xmlns:jstudio="clr-namespace:JStudio.J3D;assembly=JStudio"
+        xmlns:jstudio.animation="clr-namespace:JStudio.J3D.Animation;assembly=JStudio"
         xmlns:viewmodel="clr-namespace:J3DModelViewer.ViewModel"
         xmlns:wpfToolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
@@ -20,6 +22,11 @@
 
     <Window.Resources>
         <wcommon:LinearToSystemColorConverter x:Key="LinearToSystemColorConverter"/>
+        <ObjectDataProvider x:Key="J3DAnimLoopEnumData" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="jstudio.animation:LoopType"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
     </Window.Resources>
 
     <Grid>
@@ -70,7 +77,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="5"/>
-                <ColumnDefinition Width="410" MinWidth="300"/>
+                <ColumnDefinition Width="420" MinWidth="300"/>
             </Grid.ColumnDefinitions>
 
             <!-- 3D Viewport -->
@@ -107,52 +114,29 @@
                                                 <Label Content="{Binding Path=MainModel.BoneAnimations.Count}"/>
                                             </StackPanel>
 
-                                            <ListView Grid.Row="1" ItemsSource="{Binding Path=MainModel.BoneAnimations}" SelectedItem="{Binding Path=MainModel.CurrentBoneAnimation}" HorizontalContentAlignment="Stretch">
-                                                <ListView.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <Grid>
-                                                            <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="Auto"/>
-                                                                <ColumnDefinition Width="Auto"/>
-                                                                <ColumnDefinition Width="Auto"/>
-                                                                <ColumnDefinition Width="Auto"/>
-                                                                <ColumnDefinition Width="Auto"/>
-                                                            </Grid.ColumnDefinitions>
-
-                                                            <Label Grid.Column="0" Content="{Binding Path=Name}"/>
-                                                            <Label Grid.Column="1" Content="{Binding Path=LoopMode}"/>
-                                                            <Label Grid.Column="2" Content="{Binding Path=AnimLengthInSeconds}"/>
-                                                            <Label Grid.Column="3" Content="{Binding Path=BoneCount}"/>
-                                                            <Label Grid.Column="4" Content="{Binding Path=AnimType}"/>
-                                                        </Grid>
-                                                    </DataTemplate>
-                                                </ListView.ItemTemplate>
-                                            </ListView>
-
+                                            <DataGrid Grid.Row="1" ItemsSource="{Binding Path=MainModel.BoneAnimations}" SelectedItem="{Binding Path=MainModel.CurrentBoneAnimation}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="*"/>
+                                                    <DataGridTextColumn Header="Bone Count" Binding="{Binding Path=BoneCount}" Width="Auto"/>
+                                                    <DataGridComboBoxColumn Header="Loop Mode" ItemsSource="{Binding Source={StaticResource J3DAnimLoopEnumData}}" SelectedValueBinding="{Binding Path=LoopMode}" Width="Auto"/>
+                                                    <DataGridTextColumn Header="Length" Binding="{Binding Path=AnimLengthInSeconds}" Width="Auto"/>
+                                                    <DataGridTextColumn Header="Type" Binding="{Binding Path=AnimType}" Width="Auto"/>
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                            
                                             <StackPanel Grid.Row="2" Orientation="Horizontal">
                                                 <Label Content="Number of loaded Material Animations:"/>
                                                 <Label Content="{Binding Path=MainModel.MaterialAnimations.Count}"/>
                                             </StackPanel>
-                                            <ListView Grid.Row="3" ItemsSource="{Binding Path=MainModel.MaterialAnimations}" SelectedItem="{Binding Path=MainModel.CurrentMaterialAnimation}" HorizontalContentAlignment="Stretch">
-                                                <ListView.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <Grid>
-                                                            <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="Auto"/>
-                                                                <ColumnDefinition Width="Auto"/>
-                                                                <ColumnDefinition Width="Auto"/>
-                                                                <ColumnDefinition Width="Auto"/>
-                                                            </Grid.ColumnDefinitions>
 
-                                                            <Label Grid.Column="0" Content="{Binding Path=Name}"/>
-                                                            <Label Grid.Column="1" Content="{Binding Path=LoopMode}"/>
-                                                            <Label Grid.Column="2" Content="{Binding Path=AnimLengthInSeconds}"/>
-                                                            <Label Grid.Column="3" Content="{Binding Path=AnimType}"/>
-                                                        </Grid>
-                                                    </DataTemplate>
-                                                </ListView.ItemTemplate>
-                                            </ListView>
-
+                                            <DataGrid Grid.Row="3" ItemsSource="{Binding Path=MainModel.MaterialAnimations}" SelectedItem="{Binding Path=MainModel.CurrentMaterialAnimation}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="*"/>
+                                                    <DataGridComboBoxColumn Header="Loop Mode" ItemsSource="{Binding Source={StaticResource J3DAnimLoopEnumData}}" SelectedValueBinding="{Binding Path=LoopMode}" Width="Auto"/>
+                                                    <DataGridTextColumn Header="Length" Binding="{Binding Path=AnimLengthInSeconds}" Width="Auto"/>
+                                                    <DataGridTextColumn Header="Type" Binding="{Binding Path=AnimType}" Width="Auto"/>
+                                                </DataGrid.Columns>
+                                            </DataGrid>
                                         </Grid>
                                     </GroupBox>
                                 </Grid>
