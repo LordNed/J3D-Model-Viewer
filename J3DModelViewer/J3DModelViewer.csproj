@@ -91,9 +91,6 @@
     <Reference Include="WArchiveTools">
       <HintPath>..\lib\WArchiveTools.dll</HintPath>
     </Reference>
-    <Reference Include="WCommon">
-      <HintPath>..\lib\WCommon.dll</HintPath>
-    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -233,6 +230,10 @@
     <ProjectReference Include="..\JStudio\JStudio.csproj">
       <Project>{b90410ae-bb67-4d7a-b4f5-7209cb357a44}</Project>
       <Name>JStudio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WCommon\WCommon.csproj">
+      <Project>{e8af46cc-76dc-4541-a578-5067ead07087}</Project>
+      <Name>WCommon</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
