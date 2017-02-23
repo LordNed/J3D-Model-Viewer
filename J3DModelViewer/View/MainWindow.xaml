@@ -132,6 +132,31 @@
                                     </DataGrid>
                                 </Grid>
                             </GroupBox>
+                            <GroupBox Header="External Files">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*" MinHeight="20"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*" MinHeight="20"/>
+                                    </Grid.RowDefinitions>
+
+                                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                        <Label Content="Number of loaded External Materials:"/>
+                                        <Label Content="{Binding Path=MainModel.ExternalMaterials.Count}"/>
+                                    </StackPanel>
+
+                                    <DataGrid Grid.Row="1" ItemsSource="{Binding Path=MainModel.ExternalMaterials}" SelectedItem="{Binding Path=MainModel.CurrentExternalMaterial}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="*"/>
+                                            <DataGridTextColumn Header="Material Count" Binding="{Binding Path=MaterialsCount}" Width="Auto"/>
+                                            <DataGridTextColumn Header="Texture Count" Binding="{Binding Path=TexturesCount}" Width="Auto"/>
+                                            <DataGridTextColumn Header="Magic" Binding="{Binding Path=Magic}" Width="Auto"/>
+                                            <DataGridTextColumn Header="Type" Binding="{Binding Path=FileType}" Width="Auto"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </Grid>
+                            </GroupBox>
                             <GroupBox Header="TEV Color Overrides" DataContext="{Binding Path=MainModel.TevColorOverrides}">
                                 <ItemsControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                                     <TextBlock Padding="2" TextWrapping="Wrap" Text="Set the enabled/disable status and value of TEV Color and kColor."/>

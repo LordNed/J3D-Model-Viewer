@@ -134,7 +134,7 @@ namespace J3DModelViewer.ViewModel
             ofd.ShowPlacesList = true;
 
             // If they haven't loaded any models, they can't load any of the associated animation data.
-            string allSupportedExtensions = "*.bmd,*.bdl,*.bck, *.btk";
+            string allSupportedExtensions = "*.bmd,*.bdl,*.bck, *.btk, *.bmt";
             string onlyModelExtensions = "*.bmd, *.bdl";
 
             string extensions = HasLoadedModel ? allSupportedExtensions : onlyModelExtensions;
@@ -169,63 +169,87 @@ namespace J3DModelViewer.ViewModel
                 Console.WriteLine("Cannot load: \"{0}\", not a file!", filePath);
 
             string fileName = Path.GetFileNameWithoutExtension(filePath);
-            string fileExtension = Path.GetExtension(filePath);
+            string fileExtension = Path.GetExtension(filePath).ToLowerInvariant();
 
-            if (string.Compare(fileExtension, ".bdl", true) == 0 || string.Compare(fileExtension, ".bmd", true) == 0)
+            switch(fileExtension)
             {
-                if (unloadExisting)
-                {
-                    foreach (var model in m_loadedModels)
-                        model.Dispose();
-                    m_loadedModels.Clear();
-                    m_sceneGraphs.Clear();
-                }
+                case ".bdl":
+                case ".bmd":
+                    {
+                        if (unloadExisting)
+                        {
+                            foreach (var model in m_loadedModels)
+                                model.Dispose();
+                            m_loadedModels.Clear();
+                            m_sceneGraphs.Clear();
+                        }
 
-                var newModel = new J3D(fileName);
-                using (EndianBinaryReader reader = new EndianBinaryReader(new FileStream(filePath, FileMode.Open, FileAccess.Read), Endian.Big))
-                    newModel.LoadFromStream(reader, true, true);
+                        var newModel = new J3D(fileName);
+                        using (EndianBinaryReader reader = new EndianBinaryReader(new FileStream(filePath, FileMode.Open, FileAccess.Read), Endian.Big))
+                            newModel.LoadFromStream(reader, true, true);
 
-                newModel.SetHardwareLight(0, m_mainLight);
-                newModel.SetHardwareLight(1, m_secondaryLight);
+                        newModel.SetHardwareLight(0, m_mainLight);
+                        newModel.SetHardwareLight(1, m_secondaryLight);
 
-                // Apply patches for Wind Waker by default, since they don't seem to break anything else.
-                newModel.SetTextureOverride("ZBtoonEX", "resources/textures/ZBtoonEX.png");
-                newModel.SetTextureOverride("ZAtoon", "resources/textures/ZAtoon.png");
-                newModel.SetColorWriteOverride("eyeLdamA", false);
-                newModel.SetColorWriteOverride("eyeLdamB", false);
-                newModel.SetColorWriteOverride("mayuLdamA", false);
-                newModel.SetColorWriteOverride("mayuLdamB", false);
-                newModel.SetColorWriteOverride("eyeRdamA", false);
-                newModel.SetColorWriteOverride("eyeRdamB", false);
-                newModel.SetColorWriteOverride("mayuRdamA", false);
-                newModel.SetColorWriteOverride("mayuRdamB", false);
+                        // Apply patches for Wind Waker by default, since they don't seem to break anything else.
+                        newModel.SetTextureOverride("ZBtoonEX", "resources/textures/ZBtoonEX.png");
+                        newModel.SetTextureOverride("ZAtoon", "resources/textures/ZAtoon.png");
+                        newModel.SetColorWriteOverride("eyeLdamA", false);
+                        newModel.SetColorWriteOverride("eyeLdamB", false);
+                        newModel.SetColorWriteOverride("mayuLdamA", false);
+                        newModel.SetColorWriteOverride("mayuLdamB", false);
+                        newModel.SetColorWriteOverride("eyeRdamA", false);
+                        newModel.SetColorWriteOverride("eyeRdamB", false);
+                        newModel.SetColorWriteOverride("mayuRdamA", false);
+                        newModel.SetColorWriteOverride("mayuRdamB", false);
 
-                m_loadedModels.Add(newModel);
-                m_sceneGraphs.Add(new SceneGraphViewModel(newModel, newModel.INF1Tag.HierarchyRoot, ""));
-            }
-            else if (string.Compare(fileExtension, ".bck", true) == 0)
-            {
-                if (MainModel != null)
-                {
-                    if (unloadExisting)
-                        MainModel.UnloadBoneAnimations();
-                    MainModel.LoadBoneAnimation(filePath);
+                        m_loadedModels.Add(newModel);
+                        m_sceneGraphs.Add(new SceneGraphViewModel(newModel, newModel.INF1Tag.HierarchyRoot, ""));
+                    }
+                    break;
 
-                    // Automatically play the latest animation loaded.
-                    MainModel.SetBoneAnimation(fileName);
-                }
-            }
-            else if(string.Compare(fileExtension, ".btk", true) == 0)
-            {
-                if(MainModel != null)
-                {
-                    if (unloadExisting)
-                        MainModel.UnloadMaterialAnimations();
-                    MainModel.LoadMaterialAnim(filePath);
+                case ".bck":
+                    {
+                        if (MainModel != null)
+                        {
+                            if (unloadExisting)
+                                MainModel.UnloadBoneAnimations();
+                            MainModel.LoadBoneAnimation(filePath);
 
-                    // Automatically play the latest animation loaded.
-                    MainModel.SetMaterialAnimation(fileName);
-                }
+                            // Automatically play the latest animation loaded.
+                            MainModel.SetBoneAnimation(fileName);
+                        }
+                    }
+                    break;
+
+                case ".btk":
+                    {
+                        if (MainModel != null)
+                        {
+                            if (unloadExisting)
+                                MainModel.UnloadMaterialAnimations();
+                            MainModel.LoadMaterialAnim(filePath);
+
+                            // Automatically play the latest animation loaded.
+                            MainModel.SetMaterialAnimation(fileName);
+                        }
+                    }
+                    break;
+
+                case ".bmt":
+                    {
+                        if(MainModel != null)
+                        {
+                            if (unloadExisting)
+                                MainModel.UnloadExternalMaterials();
+                            MainModel.LoadExternalMaterial(filePath);
+
+                            // Automatically set the latest external material loaded.
+                            MainModel.SetExternalMaterial(fileName);
+                        }
+
+                    }
+                    break;
             }
 
             if (PropertyChanged != null)
