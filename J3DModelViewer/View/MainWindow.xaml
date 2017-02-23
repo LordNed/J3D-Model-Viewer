@@ -118,10 +118,11 @@
                                         </DataGrid.Columns>
                                     </DataGrid>
 
-                                    <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                    <DockPanel Grid.Row="2">
                                         <Label Content="Number of loaded Material Animations:"/>
                                         <Label Content="{Binding Path=MainModel.MaterialAnimations.Count}"/>
-                                    </StackPanel>
+                                        <Button Content="Deselect" HorizontalAlignment="Right" Margin="3" Padding="5,0,5,0" Command="{Binding Path=DeselectMaterialAnimationCommand}"/>
+                                    </DockPanel>
 
                                     <DataGrid Grid.Row="3" ItemsSource="{Binding Path=MainModel.MaterialAnimations}" SelectedItem="{Binding Path=MainModel.CurrentMaterialAnimation}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column">
                                         <DataGrid.Columns>
@@ -142,11 +143,12 @@
                                         <RowDefinition Height="*" MinHeight="20"/>
                                     </Grid.RowDefinitions>
 
-                                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                    <DockPanel Grid.Row="0">
                                         <Label Content="Number of loaded External Materials:"/>
                                         <Label Content="{Binding Path=MainModel.ExternalMaterials.Count}"/>
-                                    </StackPanel>
-
+                                        <Button Content="Deselect" HorizontalAlignment="Right" Margin="3" Padding="5,0,5,0" Command="{Binding Path=DeselectExternalMaterialCommand}"/>
+                                    </DockPanel>
+                                    
                                     <DataGrid Grid.Row="1" ItemsSource="{Binding Path=MainModel.ExternalMaterials}" SelectedItem="{Binding Path=MainModel.CurrentExternalMaterial}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column">
                                         <DataGrid.Columns>
                                             <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="*"/>

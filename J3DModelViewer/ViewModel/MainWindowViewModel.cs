@@ -35,7 +35,9 @@ namespace J3DModelViewer.ViewModel
         public ICommand CloseModelCommand { get { return new RelayCommand(x => OnUserRequestCloseModel()); } }
         public ICommand ExitApplicationCommand { get { return new RelayCommand(x => OnUserRequestApplicationExit()); } }
         public ICommand ExportMeshesToObjCommand { get { return new RelayCommand(x => OnUserRequestExportMeshes()); } }
-        public ICommand DeselectBoneAnimationCommand { get { return new RelayCommand(x => { if (MainModel != null) MainModel.SetBoneAnimation(null); }); } }
+        public ICommand DeselectBoneAnimationCommand { get { return new RelayCommand(x => { if (MainModel != null) MainModel.SetBoneAnimation(null); }, x => MainModel != null && MainModel.CurrentBoneAnimation != null); } }
+        public ICommand DeselectMaterialAnimationCommand { get { return new RelayCommand(x => { if (MainModel != null) MainModel.SetMaterialAnimation(null); }, x => MainModel != null && MainModel.CurrentMaterialAnimation != null); } }
+        public ICommand DeselectExternalMaterialCommand { get { return new RelayCommand(x => { if (MainModel != null) MainModel.SetExternalMaterial(null); }, x => MainModel != null && MainModel.CurrentExternalMaterial != null); } }
         #endregion
 
         // Rendering
@@ -140,7 +142,7 @@ namespace J3DModelViewer.ViewModel
 
             string extensions = HasLoadedModel ? allSupportedExtensions : onlyModelExtensions;
 
-            ofd.Filters.Add(new CommonFileDialogFilter(string.Format("Supported Files ({0})", extensions), extensions)); 
+            ofd.Filters.Add(new CommonFileDialogFilter(string.Format("Supported Files ({0})", extensions), extensions));
             ofd.Filters.Add(new CommonFileDialogFilter("All Files (*.*)", "*.*"));
 
             if (ofd.ShowDialog() == CommonFileDialogResult.Ok)
@@ -172,7 +174,7 @@ namespace J3DModelViewer.ViewModel
             string fileName = Path.GetFileNameWithoutExtension(filePath);
             string fileExtension = Path.GetExtension(filePath).ToLowerInvariant();
 
-            switch(fileExtension)
+            switch (fileExtension)
             {
                 case ".bdl":
                 case ".bmd":
@@ -239,7 +241,7 @@ namespace J3DModelViewer.ViewModel
 
                 case ".bmt":
                     {
-                        if(MainModel != null)
+                        if (MainModel != null)
                         {
                             if (unloadExisting)
                                 MainModel.UnloadExternalMaterials();
@@ -346,7 +348,7 @@ namespace J3DModelViewer.ViewModel
                 m_lineBatcher.DrawLine(Vector3.Zero, new Vector3(0, 0, 50), WLinearColor.Blue, 0, 0);
             }
 
-            if(m_modelRenderOptions.ShowBoundingBox)
+            if (m_modelRenderOptions.ShowBoundingBox)
             {
                 foreach (var j3d in m_loadedModels)
                     j3d.DrawBoundsForShapes(true, false, m_lineBatcher);
@@ -370,7 +372,7 @@ namespace J3DModelViewer.ViewModel
                     j3d.DrawBoundsForJoints(false, true, m_lineBatcher);
             }
 
-            if(m_modelRenderOptions.ShowBones)
+            if (m_modelRenderOptions.ShowBones)
             {
                 foreach (var j3d in m_loadedModels)
                     j3d.DrawBones(m_lineBatcher);
@@ -468,9 +470,9 @@ namespace J3DModelViewer.ViewModel
                 WLinearColor lineColor;
                 float lineThickness = 0;
 
-                if(lineIndex == axesIndex)
+                if (lineIndex == axesIndex)
                 {
-                    lineColor = new WLinearColor(70/255f, 70/255f, 70/255f);
+                    lineColor = new WLinearColor(70 / 255f, 70 / 255f, 70 / 255f);
                     lineThickness = 0f;
                 }
                 else if (isMajorLine)
@@ -510,7 +512,7 @@ namespace J3DModelViewer.ViewModel
                 string directoryName = Path.GetDirectoryName(sfd.FileName);
                 Directory.CreateDirectory(directoryName);
 
-                for(int i = 0; i < m_loadedModels.Count; i++)
+                for (int i = 0; i < m_loadedModels.Count; i++)
                 {
                     string exportName = Path.GetFileName(sfd.FileName);
 
