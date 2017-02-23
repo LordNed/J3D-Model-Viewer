@@ -1,0 +1,78 @@
+﻿<UserControl x:Class="J3DModelViewer.View.InfoTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:J3DModelViewer.View"
+             xmlns:viewmodel="clr-namespace:J3DModelViewer.ViewModel"
+             xmlns:local.converters="clr-namespace:J3DModelViewer.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="640" d:DesignWidth="420">
+    <UserControl.Resources>
+        <local.converters:VertexFormatDataTypeConverter x:Key="VTX1DataTypeToStringConverter"/>
+    </UserControl.Resources>
+    <ScrollViewer>
+        <ItemsControl>
+            <!-- J3D Header Info -->
+            <GroupBox Header="Header" DataContext="{Binding Path=MainModel}">
+                <UniformGrid Columns="2" Rows="3">
+                    <Label Content="Magic:"/>
+                    <Label Content="{Binding Path=Magic}"/>
+
+                    <Label Content="JStudio Type:"/>
+                    <Label Content="{Binding Path=StudioType}"/>
+
+                    <Label Content="Total File Size:"/>
+                    <Label Content="{Binding Path=TotalFileSize}"/>
+                </UniformGrid>
+            </GroupBox>
+
+            <!-- INF1 Data (Scenegraph) -->
+            <GroupBox Header="INF1 Section">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*" MinHeight="120"/>
+                        <RowDefinition Height="Auto"/>
+
+                    </Grid.RowDefinitions>
+                    <!-- Info Header -->
+                    <UniformGrid Grid.Row="0" DataContext="{Binding Path=MainModel.INF1Tag}" Columns="2">
+                        <Label Content="Unknown 1:"/>
+                        <Label Content="{Binding Path=Unknown1}"/>
+
+                        <Label Content="Packet Count:"/>
+                        <Label Content="{Binding Path=PacketCount}"/>
+
+                        <Label Content="Vertex Count:"/>
+                        <Label Content="{Binding Path=VertexCount}"/>
+                    </UniformGrid>
+
+                    <!-- Treeview -->
+                    <TreeView Grid.Row="1" MinHeight="45" ItemsSource="{Binding Path=MainScenegraph.Children}">
+                        <TreeView.ItemTemplate>
+                            <HierarchicalDataTemplate ItemsSource="{Binding Path=Children}" DataType="{x:Type viewmodel:SceneGraphViewModel}">
+                                <TextBlock Text="{Binding}"/>
+                            </HierarchicalDataTemplate>
+                        </TreeView.ItemTemplate>
+                    </TreeView>
+
+                    <!-- Splitter -->
+                    <GridSplitter Grid.Row="2" Height="5" HorizontalAlignment="Stretch"/>
+                </Grid>
+            </GroupBox>
+
+            <!-- VTX 1 Section -->
+            <GroupBox  Header="VTX1 Section" DataContext="{Binding Path=MainModel.VTX1Tag}">
+                <DataGrid Grid.Row="3" ItemsSource="{Binding Path=VertexFormats}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Array Type" Binding="{Binding Path=ArrayType}" Width="Auto"/>
+                        <DataGridTextColumn Header="Component Count" Binding="{Binding Path=ComponentCount}" Width="Auto"/>
+                        <DataGridTextColumn Header="Decimal Point" Binding="{Binding Path=DecimalPoint}" Width="Auto"/>
+                        <DataGridTextColumn Header="Data Type" Binding="{Binding Path=., Converter={StaticResource VTX1DataTypeToStringConverter}}" Width="Auto"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </GroupBox>
+        </ItemsControl>
+    </ScrollViewer>
+</UserControl>
