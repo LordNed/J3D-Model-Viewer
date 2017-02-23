@@ -102,10 +102,11 @@
                                         <RowDefinition Height="*" MinHeight="20"/>
                                     </Grid.RowDefinitions>
 
-                                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                    <DockPanel Grid.Row="0">
                                         <Label Content="Number of loaded Bone Animations:"/>
                                         <Label Content="{Binding Path=MainModel.BoneAnimations.Count}"/>
-                                    </StackPanel>
+                                        <Button Content="Deselect" HorizontalAlignment="Right" Margin="3" Padding="5,0,5,0" Command="{Binding Path=DeselectBoneAnimationCommand}"/>
+                                    </DockPanel>
 
                                     <DataGrid Grid.Row="1" ItemsSource="{Binding Path=MainModel.BoneAnimations}" SelectedItem="{Binding Path=MainModel.CurrentBoneAnimation}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column">
                                         <DataGrid.Columns>

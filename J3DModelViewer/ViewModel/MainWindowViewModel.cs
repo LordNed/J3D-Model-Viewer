@@ -35,6 +35,7 @@ namespace J3DModelViewer.ViewModel
         public ICommand CloseModelCommand { get { return new RelayCommand(x => OnUserRequestCloseModel()); } }
         public ICommand ExitApplicationCommand { get { return new RelayCommand(x => OnUserRequestApplicationExit()); } }
         public ICommand ExportMeshesToObjCommand { get { return new RelayCommand(x => OnUserRequestExportMeshes()); } }
+        public ICommand DeselectBoneAnimationCommand { get { return new RelayCommand(x => { if (MainModel != null) MainModel.SetBoneAnimation(null); }); } }
         #endregion
 
         // Rendering
