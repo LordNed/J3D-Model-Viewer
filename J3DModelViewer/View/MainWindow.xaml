@@ -81,7 +81,7 @@
             <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
 
             <!-- Tabbed Right Bar -->
-            <TabControl Grid.Column="2">
+            <TabControl Grid.Column="2" SelectedIndex="2">
                 <!-- Model Previewing Features -->
                 <TabItem Header="Previewer">
                     <view:PreviewTab/>
@@ -92,6 +92,10 @@
 
                 <TabItem Header="Material Editor">
                     <Grid>
+                        <Grid.DataContext>
+                            <viewmodel:MaterialEditorViewModel/>
+                        </Grid.DataContext>
+                        
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
@@ -99,23 +103,22 @@
 
                         <DockPanel Grid.Row="0">
                             <Label Content="Current Material:"/>
-                            <ComboBox ItemsSource="{Binding Path=MainModel.MAT3Tag.MaterialList}" Margin="10,0,10,0"/>
+                            <ComboBox ItemsSource="{Binding Path=DataContext.MainModel.MAT3Tag.MaterialList, RelativeSource={RelativeSource AncestorType=Window}}" SelectedItem="{Binding Path=CurrentMaterial}" DisplayMemberPath="Name" Margin="10,0,10,0"/>
                         </DockPanel>
                         
                         <!-- Bind all settings to the currently selected material. -->
-                        <ScrollViewer Grid.Row="1" DataContext="{Binding Path=}">
+                        <ScrollViewer Grid.Row="1" DataContext="{Binding Path=CurrentMaterial}">
                             <ItemsControl>
                                 <!-- Material Name -->
                                 <DockPanel>
                                     <Label Content="Name:"/>
-                                    <TextBox VerticalAlignment="Center" DockPanel.Dock="Right" Text="{Binding Path=Name}"/>
+                                    <TextBox VerticalAlignment="Center" DockPanel.Dock="Right" Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"/>
                                 </DockPanel>
                                 <!-- Material Flag -->
                                 <DockPanel>
                                     <Label Content="Flag:"/>
-                                    <TextBox VerticalAlignment="Center" DockPanel.Dock="Right" Text="{Binding Path=Name}"/>
+                                    <wpfToolkit:ByteUpDown VerticalAlignment="Center" DockPanel.Dock="Right" Value="{Binding Path=Flag}"/>
                                 </DockPanel>
-
                             </ItemsControl>
                         </ScrollViewer>
                     </Grid>

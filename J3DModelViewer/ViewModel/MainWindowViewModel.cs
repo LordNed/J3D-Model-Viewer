@@ -18,7 +18,7 @@ using JStudio.Framework;
 
 namespace J3DModelViewer.ViewModel
 {
-    class MainWindowViewModel : INotifyPropertyChanged
+    public class MainWindowViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
