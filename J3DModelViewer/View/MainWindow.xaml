@@ -91,8 +91,33 @@
                 </TabItem>
 
                 <TabItem Header="Material Editor">
-                    <!-- 3D Viewport -->
-                    <Grid Grid.Column="2">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <DockPanel Grid.Row="0">
+                            <Label Content="Current Material:"/>
+                            <ComboBox ItemsSource="{Binding Path=MainModel.MAT3Tag.MaterialList}" Margin="10,0,10,0"/>
+                        </DockPanel>
+                        
+                        <!-- Bind all settings to the currently selected material. -->
+                        <ScrollViewer Grid.Row="1" DataContext="{Binding Path=}">
+                            <ItemsControl>
+                                <!-- Material Name -->
+                                <DockPanel>
+                                    <Label Content="Name:"/>
+                                    <TextBox VerticalAlignment="Center" DockPanel.Dock="Right" Text="{Binding Path=Name}"/>
+                                </DockPanel>
+                                <!-- Material Flag -->
+                                <DockPanel>
+                                    <Label Content="Flag:"/>
+                                    <TextBox VerticalAlignment="Center" DockPanel.Dock="Right" Text="{Binding Path=Name}"/>
+                                </DockPanel>
+
+                            </ItemsControl>
+                        </ScrollViewer>
                     </Grid>
                 </TabItem>
             </TabControl>
