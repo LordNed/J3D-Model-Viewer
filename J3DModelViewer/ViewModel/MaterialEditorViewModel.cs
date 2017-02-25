@@ -1,6 +1,8 @@
 ﻿using JStudio.J3D;
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace J3DModelViewer.ViewModel
 {
@@ -25,8 +27,19 @@ namespace J3DModelViewer.ViewModel
             {
                 m_currentColorChannelControl = value;
                 OnPropertyChanged();
+                OnPropertyChanged("CurrentColorChannelControlLightMaskLabel");
             }
         }
+
+        public string CurrentColorChannelControlLightMaskLabel
+        {
+            get
+            {
+                return "Use Dropdown...";
+            }
+            set { }
+        }
+
         private Material m_currentMaterial;
         private ColorChannelControl m_currentColorChannelControl;
 

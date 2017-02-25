@@ -125,7 +125,7 @@
                                     <wpfToolkit:ByteUpDown VerticalAlignment="Center" DockPanel.Dock="Right" Value="{Binding Path=Flag}"/>
                                 </DockPanel>
 
-                                <Expander Header="Channel Controls" IsExpanded="True">
+                                <Expander Header="Channel Controls">
                                     <ItemsControl>
                                         <!-- Which Color Channel are you editing -->
                                         <DockPanel>
@@ -160,7 +160,7 @@
                                         <!-- Lit Mask-->
                                         <DockPanel>
                                             <Label Content="Light Channel Mask:"/>
-                                            <ComboBox Text="Multiselect..." IsEditable="True" IsReadOnly="True">
+                                            <ComboBox Text="{Binding Path=CurrentColorChannelControlLightMaskLabel}" IsEditable="True" IsReadOnly="True">
                                                 <CheckBox Content="Light 0" IsChecked="{Binding Path=CurrentColorChannelControl.LitMask, Converter={StaticResource GXLightMaskEnumConverter}, ConverterParameter={x:Static jstudio:GXLightMask.Light0}}"/>
                                                 <CheckBox Content="Light 1" IsChecked="{Binding Path=CurrentColorChannelControl.LitMask, Converter={StaticResource GXLightMaskEnumConverter}, ConverterParameter={x:Static jstudio:GXLightMask.Light1}}"/>
                                                 <CheckBox Content="Light 2" IsChecked="{Binding Path=CurrentColorChannelControl.LitMask, Converter={StaticResource GXLightMaskEnumConverter}, ConverterParameter={x:Static jstudio:GXLightMask.Light2}}"/>
