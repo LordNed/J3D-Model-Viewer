@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local.converters="clr-namespace:J3DModelViewer.Converters"
+        xmlns:converters="clr-namespace:J3DModelViewer.Converters"
         xmlns:wcommon="clr-namespace:WindEditor.WPF;assembly=WCommon"
         xmlns:jstudio="clr-namespace:JStudio.J3D;assembly=JStudio"
         xmlns:wpfToolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
@@ -21,7 +21,12 @@
     </Window.DataContext>
 
     <Window.Resources>
-        <wcommon:LinearToSystemColorConverter x:Key="LinearToSystemColorConverter"/>
+        <ResourceDictionary>
+            <wcommon:LinearToSystemColorConverter x:Key="LinearToSystemColorConverter"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/J3DModelViewer;component/View/J3DEnums.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Window.Resources>
 
     <Grid>
@@ -95,7 +100,7 @@
                         <Grid.DataContext>
                             <viewmodel:MaterialEditorViewModel/>
                         </Grid.DataContext>
-                        
+
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
@@ -105,20 +110,60 @@
                             <Label Content="Current Material:"/>
                             <ComboBox ItemsSource="{Binding Path=DataContext.MainModel.MAT3Tag.MaterialList, RelativeSource={RelativeSource AncestorType=Window}}" SelectedItem="{Binding Path=CurrentMaterial}" DisplayMemberPath="Name" Margin="10,0,10,0"/>
                         </DockPanel>
-                        
+
                         <!-- Bind all settings to the currently selected material. -->
-                        <ScrollViewer Grid.Row="1" DataContext="{Binding Path=CurrentMaterial}">
+                        <ScrollViewer Grid.Row="1">
                             <ItemsControl>
                                 <!-- Material Name -->
-                                <DockPanel>
+                                <DockPanel DataContext="{Binding Path=CurrentMaterial}">
                                     <Label Content="Name:"/>
                                     <TextBox VerticalAlignment="Center" DockPanel.Dock="Right" Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"/>
                                 </DockPanel>
                                 <!-- Material Flag -->
-                                <DockPanel>
+                                <DockPanel DataContext="{Binding Path=CurrentMaterial}">
                                     <Label Content="Flag:"/>
                                     <wpfToolkit:ByteUpDown VerticalAlignment="Center" DockPanel.Dock="Right" Value="{Binding Path=Flag}"/>
                                 </DockPanel>
+
+                                <Expander Header="Channel Controls" IsExpanded="True">
+                                    <ItemsControl>
+                                        <!-- Which Color Channel are you editing -->
+                                        <DockPanel>
+                                            <Label Content="Color Channel:"/>
+                                            <ComboBox ItemsSource="{Binding Path=CurrentMaterial.ColorChannelControls}" SelectedItem="{Binding Path=CurrentColorChannelControl}"/>
+                                        </DockPanel>
+                                        <!-- Is Lighting Enabled for this Color Channel -->
+                                        <DockPanel>
+                                            <Label Content="Lighting Enabled"/>
+                                            <CheckBox IsChecked="{Binding Path=CurrentColorChannelControl.LightingEnabled}"/>
+                                        </DockPanel>
+                                        <!-- Material Color Source -->
+                                        <DockPanel>
+                                            <Label Content="Material Color Source:"/>
+                                            <ComboBox SelectedItem="{Binding Path=CurrentColorChannelControl.MaterialSrc}" ItemsSource="{Binding Source={StaticResource GXColorSrcEnum}}"/>
+                                        </DockPanel>
+                                        <!-- Ambient Color Source -->
+                                        <DockPanel>
+                                            <Label Content="Ambient Color Source:"/>
+                                            <ComboBox SelectedItem="{Binding Path=CurrentColorChannelControl.AmbientSrc}" ItemsSource="{Binding Source={StaticResource GXColorSrcEnum}}"/>
+                                        </DockPanel>
+                                        <!-- Diffuse Function -->
+                                        <DockPanel>
+                                            <Label Content="Diffuse Function:"/>
+                                            <ComboBox SelectedItem="{Binding Path=CurrentColorChannelControl.DiffuseFunction}" ItemsSource="{Binding Source={StaticResource GXDiffuseFunctionEnum}}"/>
+                                        </DockPanel>
+                                        <!-- Light Attenuation Function -->
+                                        <DockPanel>
+                                            <Label Content="Light Attenuation Function:"/>
+                                            <ComboBox SelectedItem="{Binding Path=CurrentColorChannelControl.AttenuationFunction}" ItemsSource="{Binding Source={StaticResource GXAttenuationFunctionEnum}}" />
+                                        </DockPanel>
+                                        <!-- Lit Mask-->
+                                        <DockPanel>
+                                            <Label Content="Light Channel Mask:"/>
+                                            <ComboBox SelectedItem="{Binding Path=CurrentColorChannelControl.LitMask}" ItemsSource="{Binding Source={StaticResource GXLightMaskEnum}}"/>
+                                        </DockPanel>
+                                    </ItemsControl>
+                                </Expander>
                             </ItemsControl>
                         </ScrollViewer>
                     </Grid>

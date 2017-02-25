@@ -125,6 +125,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\EnumBindingSourceExtension.cs" />
     <Compile Include="Converters\VertexFormatDataTypeConverter.cs" />
     <Compile Include="Framework\FrameBuffer.cs" />
     <Compile Include="Framework\LineBatcher.cs" />
@@ -138,6 +139,10 @@
       <DependentUpon>PreviewTab.xaml</DependentUpon>
     </Compile>
     <Page Include="View\InfoTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\J3DEnums.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
