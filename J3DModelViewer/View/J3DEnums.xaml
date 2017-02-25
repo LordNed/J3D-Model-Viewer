@@ -3,17 +3,22 @@
                     xmlns:local="clr-namespace:J3DModelViewer.View"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
                     xmlns:jstudio="clr-namespace:JStudio.J3D;assembly=JStudio"
+                    xmlns:converters="clr-namespace:J3DModelViewer.Converters"
                     >
     <ObjectDataProvider x:Key="GXColorSrcEnum" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
         <ObjectDataProvider.MethodParameters>
             <x:Type TypeName="jstudio:GXColorSrc"/>
         </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
+    
+    <!-- Light Mask Enum + Converter -->
     <ObjectDataProvider x:Key="GXLightMaskEnum" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
         <ObjectDataProvider.MethodParameters>
             <x:Type TypeName="jstudio:GXLightMask"/>
         </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
+    <converters:GXLightMaskConverter x:Key="GXLightMaskEnumConverter"/>
+
     <ObjectDataProvider x:Key="GXDiffuseFunctionEnum" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
         <ObjectDataProvider.MethodParameters>
             <x:Type TypeName="jstudio:GXDiffuseFunction"/>

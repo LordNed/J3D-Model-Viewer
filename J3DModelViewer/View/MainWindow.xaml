@@ -160,7 +160,16 @@
                                         <!-- Lit Mask-->
                                         <DockPanel>
                                             <Label Content="Light Channel Mask:"/>
-                                            <ComboBox SelectedItem="{Binding Path=CurrentColorChannelControl.LitMask}" ItemsSource="{Binding Source={StaticResource GXLightMaskEnum}}"/>
+                                            <ComboBox Text="Multiselect..." IsEditable="True" IsReadOnly="True">
+                                                <CheckBox Content="Light 0" IsChecked="{Binding Path=CurrentColorChannelControl.LitMask, Converter={StaticResource GXLightMaskEnumConverter}, ConverterParameter={x:Static jstudio:GXLightMask.Light0}}"/>
+                                                <CheckBox Content="Light 1" IsChecked="{Binding Path=CurrentColorChannelControl.LitMask, Converter={StaticResource GXLightMaskEnumConverter}, ConverterParameter={x:Static jstudio:GXLightMask.Light1}}"/>
+                                                <CheckBox Content="Light 2" IsChecked="{Binding Path=CurrentColorChannelControl.LitMask, Converter={StaticResource GXLightMaskEnumConverter}, ConverterParameter={x:Static jstudio:GXLightMask.Light2}}"/>
+                                                <CheckBox Content="Light 3" IsChecked="{Binding Path=CurrentColorChannelControl.LitMask, Converter={StaticResource GXLightMaskEnumConverter}, ConverterParameter={x:Static jstudio:GXLightMask.Light3}}"/>
+                                                <CheckBox Content="Light 4" IsChecked="{Binding Path=CurrentColorChannelControl.LitMask, Converter={StaticResource GXLightMaskEnumConverter}, ConverterParameter={x:Static jstudio:GXLightMask.Light4}}"/>
+                                                <CheckBox Content="Light 5" IsChecked="{Binding Path=CurrentColorChannelControl.LitMask, Converter={StaticResource GXLightMaskEnumConverter}, ConverterParameter={x:Static jstudio:GXLightMask.Light5}}"/>
+                                                <CheckBox Content="Light 6" IsChecked="{Binding Path=CurrentColorChannelControl.LitMask, Converter={StaticResource GXLightMaskEnumConverter}, ConverterParameter={x:Static jstudio:GXLightMask.Light6}}"/>
+                                                <CheckBox Content="Light 7" IsChecked="{Binding Path=CurrentColorChannelControl.LitMask, Converter={StaticResource GXLightMaskEnumConverter}, ConverterParameter={x:Static jstudio:GXLightMask.Light7}}"/>
+                                            </ComboBox>
                                         </DockPanel>
                                     </ItemsControl>
                                 </Expander>
