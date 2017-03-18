@@ -45,9 +45,9 @@
                 <MenuItem Header="_Load Animation" Command="{Binding Path=LoadAnimationCommand}" IsEnabled="{Binding Path=HasLoadedModel}"/>
                 <MenuItem Header="_Close" Command="{Binding Path=CloseModelCommand}" IsEnabled="{Binding Path=HasLoadedModel}"/>
                 <Separator/>
-                <MenuItem Header="_Export...">
+                <!-- <MenuItem Header="_Export...">
                     <MenuItem Header="Export Mesh(es) to .obj" Command="{Binding Path=ExportMeshesToObjCommand}" IsEnabled="{Binding Path=HasLoadedModel}"/>
-                </MenuItem>
+                </MenuItem> -->
                 <Separator/>
                 <MenuItem Header="_Exit" Command="{Binding Path=ExitApplicationCommand}"/>
             </MenuItem>
@@ -95,89 +95,6 @@
                 </TabItem>
                 <TabItem Header="Info">
                     <view:InfoTab/>
-                </TabItem>
-
-                <TabItem Header="Material Editor">
-                    <Grid>
-                        <Grid.DataContext>
-                            <viewmodel:MaterialEditorViewModel/>
-                        </Grid.DataContext>
-
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-
-                        <DockPanel Grid.Row="0">
-                            <Label Content="Current Material:"/>
-                            <ComboBox ItemsSource="{Binding Path=DataContext.MainModel.MAT3Tag.MaterialList, RelativeSource={RelativeSource AncestorType=Window}}" SelectedItem="{Binding Path=CurrentMaterial}" DisplayMemberPath="Name" Margin="10,0,10,0"/>
-                        </DockPanel>
-
-                        <!-- Bind all settings to the currently selected material. -->
-                        <ScrollViewer Grid.Row="1">
-                            <ItemsControl>
-                                <!-- Material Name -->
-                                <DockPanel DataContext="{Binding Path=CurrentMaterial}">
-                                    <Label Content="Name:"/>
-                                    <TextBox VerticalAlignment="Center" DockPanel.Dock="Right" Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"/>
-                                </DockPanel>
-                                <!-- Material Flag -->
-                                <DockPanel DataContext="{Binding Path=CurrentMaterial}">
-                                    <Label Content="Flag:"/>
-                                    <wpfToolkit:ByteUpDown VerticalAlignment="Center" DockPanel.Dock="Right" Value="{Binding Path=Flag}"/>
-                                </DockPanel>
-
-                                <Expander Header="Channel Controls">
-                                    <ItemsControl>
-                                        <!-- Which Color Channel are you editing -->
-                                        <DockPanel>
-                                            <Label Content="Color Channel:"/>
-                                            <ComboBox ItemsSource="{Binding Path=CurrentMaterial.ColorChannelControls}" SelectedItem="{Binding Path=CurrentColorChannelControl}"/>
-                                        </DockPanel>
-                                        <!-- Is Lighting Enabled for this Color Channel -->
-                                        <DockPanel>
-                                            <Label Content="Lighting Enabled"/>
-                                            <CheckBox IsChecked="{Binding Path=CurrentColorChannelControl.LightingEnabled}"/>
-                                        </DockPanel>
-                                        <!-- Material Color Source -->
-                                        <DockPanel>
-                                            <Label Content="Material Color Source:"/>
-                                            <ComboBox SelectedItem="{Binding Path=CurrentColorChannelControl.MaterialSrc}" ItemsSource="{Binding Source={StaticResource GXColorSrcEnum}}"/>
-                                        </DockPanel>
-                                        <!-- Ambient Color Source -->
-                                        <DockPanel>
-                                            <Label Content="Ambient Color Source:"/>
-                                            <ComboBox SelectedItem="{Binding Path=CurrentColorChannelControl.AmbientSrc}" ItemsSource="{Binding Source={StaticResource GXColorSrcEnum}}"/>
-                                        </DockPanel>
-                                        <!-- Diffuse Function -->
-                                        <DockPanel>
-                                            <Label Content="Diffuse Function:"/>
-                                            <ComboBox SelectedItem="{Binding Path=CurrentColorChannelControl.DiffuseFunction}" ItemsSource="{Binding Source={StaticResource GXDiffuseFunctionEnum}}"/>
-                                        </DockPanel>
-                                        <!-- Light Attenuation Function -->
-                                        <DockPanel>
-                                            <Label Content="Light Attenuation Function:"/>
-                                            <ComboBox SelectedItem="{Binding Path=CurrentColorChannelControl.AttenuationFunction}" ItemsSource="{Binding Source={StaticResource GXAttenuationFunctionEnum}}" />
-                                        </DockPanel>
-                                        <!-- Lit Mask-->
-                                        <DockPanel>
-                                            <Label Content="Light Channel Mask:"/>
-                                            <ComboBox Text="{Binding Path=CurrentColorChannelControlLightMaskLabel}" IsEditable="True" IsReadOnly="True">
-                                                <CheckBox Content="Light 0" IsChecked="{Binding Path=CurrentColorChannelControl.LitMask, Converter={StaticResource GXLightMaskEnumConverter}, ConverterParameter={x:Static jstudio:GXLightMask.Light0}}"/>
-                                                <CheckBox Content="Light 1" IsChecked="{Binding Path=CurrentColorChannelControl.LitMask, Converter={StaticResource GXLightMaskEnumConverter}, ConverterParameter={x:Static jstudio:GXLightMask.Light1}}"/>
-                                                <CheckBox Content="Light 2" IsChecked="{Binding Path=CurrentColorChannelControl.LitMask, Converter={StaticResource GXLightMaskEnumConverter}, ConverterParameter={x:Static jstudio:GXLightMask.Light2}}"/>
-                                                <CheckBox Content="Light 3" IsChecked="{Binding Path=CurrentColorChannelControl.LitMask, Converter={StaticResource GXLightMaskEnumConverter}, ConverterParameter={x:Static jstudio:GXLightMask.Light3}}"/>
-                                                <CheckBox Content="Light 4" IsChecked="{Binding Path=CurrentColorChannelControl.LitMask, Converter={StaticResource GXLightMaskEnumConverter}, ConverterParameter={x:Static jstudio:GXLightMask.Light4}}"/>
-                                                <CheckBox Content="Light 5" IsChecked="{Binding Path=CurrentColorChannelControl.LitMask, Converter={StaticResource GXLightMaskEnumConverter}, ConverterParameter={x:Static jstudio:GXLightMask.Light5}}"/>
-                                                <CheckBox Content="Light 6" IsChecked="{Binding Path=CurrentColorChannelControl.LitMask, Converter={StaticResource GXLightMaskEnumConverter}, ConverterParameter={x:Static jstudio:GXLightMask.Light6}}"/>
-                                                <CheckBox Content="Light 7" IsChecked="{Binding Path=CurrentColorChannelControl.LitMask, Converter={StaticResource GXLightMaskEnumConverter}, ConverterParameter={x:Static jstudio:GXLightMask.Light7}}"/>
-                                            </ComboBox>
-                                        </DockPanel>
-                                    </ItemsControl>
-                                </Expander>
-                            </ItemsControl>
-                        </ScrollViewer>
-                    </Grid>
                 </TabItem>
             </TabControl>
         </Grid>
