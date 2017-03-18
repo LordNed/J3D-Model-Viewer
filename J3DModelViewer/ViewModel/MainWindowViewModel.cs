@@ -46,6 +46,7 @@ namespace J3DModelViewer.ViewModel
         private int m_viewportWidth;
         private float m_timeSinceStartup;
         private GLControl m_glControl;
+        private Vector3 m_glControlClearColor;
         private System.Diagnostics.Stopwatch m_dtStopwatch;
 
         private ScreenspaceQuad m_screenQuad;
@@ -79,6 +80,9 @@ namespace J3DModelViewer.ViewModel
             m_renderCamera.Transform.Rotation = Quaternion.FromAxisAngle(Vector3.UnitY, WMath.DegreesToRadians(45f));
             m_dtStopwatch = new System.Diagnostics.Stopwatch();
             Application.Current.MainWindow.Closing += OnMainWindowClosing;
+
+            Random rnd = new Random((int)DateTime.Now.ToBinary());
+            m_glControlClearColor = ColorUtils.HSVtoRGB(new Vector3(rnd.Next(255) / 255f, 0.7f, 0.85f));
         }
 
         internal void OnMainEditorWindowLoaded(GLControl child)
@@ -281,9 +285,7 @@ namespace J3DModelViewer.ViewModel
 
         private void ProcessTick()
         {
-            System.Random rnd = new System.Random(m_glControl.GetHashCode());
-            //GL.ClearColor(0.15f, 0.83f, 0.10f, 1f);
-            GL.ClearColor(rnd.Next(255) / 255f, rnd.Next(255) / 255f, rnd.Next(255) / 255f, 1);
+            GL.ClearColor(m_glControlClearColor.X, m_glControlClearColor.Y, m_glControlClearColor.Z, 1f);
 
             // If the user has requested a higher resolution screenshot, we're going to resize the backbuffer if required.
             if (m_highresScreenshot.UserRequestedScreenshot)
