@@ -106,5 +106,17 @@ namespace J3DModelViewer.Properties {
                 this["ShowBoneBoundingSphere"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AnimateLight {
+            get {
+                return ((bool)(this["AnimateLight"]));
+            }
+            set {
+                this["AnimateLight"] = value;
+            }
+        }
     }
 }

@@ -106,6 +106,7 @@ namespace J3DModelViewer.ViewModel
             var lightPos = new Vector4(250, 200, 250, 0);
             m_mainLight = new GXLight(lightPos, -lightPos.Normalized(), new Vector4(1, 0, 1, 1), new Vector4(1.075f, 0, 0, 0), new Vector4(1.075f, 0, 0, 0));
             m_secondaryLight = new GXLight(lightPos, -lightPos.Normalized(), new Vector4(0, 0, 1, 1), new Vector4(1.075f, 0, 0, 0), new Vector4(1.075f, 0, 0, 0));
+            m_secondaryLight.Position = new Vector4(CalculateLightPosition((float)Math.PI / 2f), 0);
 
             // Check to see if there's any file on the command line argument now that we've initialized, incase they opened via double clicking on a file.
             string[] cmdArgs = Environment.GetCommandLineArgs();
@@ -323,11 +324,12 @@ namespace J3DModelViewer.ViewModel
             deltaTime = WMath.Clamp(deltaTime, 0, 0.25f); // quarter second max because debugging
             m_timeSinceStartup += deltaTime;
 
-            // Rotate our light
-            float angleInRad = m_timeSinceStartup % WMath.DegreesToRadians(360f);
-            Quaternion lightRot = Quaternion.FromAxisAngle(Vector3.UnitY, angleInRad);
-            Vector3 newLightPos = Vector3.Transform(new Vector3(-500, 0, 0), lightRot) + new Vector3(0, 50, 0);
-            m_mainLight.Position = new Vector4(newLightPos, 0);
+            if(m_modelRenderOptions.AnimateLight)
+            {
+                // Rotate our light
+                float angleInRad = m_timeSinceStartup % WMath.DegreesToRadians(360f);
+                m_mainLight.Position = new Vector4(CalculateLightPosition(angleInRad), 0);
+            }
 
             if (m_modelRenderOptions.ShowGrid)
             {
@@ -492,6 +494,13 @@ namespace J3DModelViewer.ViewModel
                 b.X = -(perspectiveGridSize / 4f);
                 m_lineBatcher.DrawLine(a, b, lineColor, lineThickness, 0f);
             }
+        }
+
+        private Vector3 CalculateLightPosition(float angleInRad)
+        {
+            Quaternion lightRot = Quaternion.FromAxisAngle(Vector3.UnitY, angleInRad);
+            Vector3 newLightPos = Vector3.Transform(new Vector3(-500, 0, 0), lightRot) + new Vector3(0, 50, 0);
+            return newLightPos;
         }
 
         private void OnUserRequestExportMeshes()

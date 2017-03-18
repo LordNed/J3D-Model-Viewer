@@ -26,6 +26,17 @@ namespace J3DModelViewer.ViewModel
             }
         }
 
+        public bool AnimateLight
+        {
+            get { return m_animateLight; }
+            set
+            {
+                m_animateLight = value;
+                OnPropertyChanged("AnimateLight");
+            }
+        }
+
+
         public bool ShowBoundingBox
         {
             get { return m_showBoundingBox; }
@@ -78,6 +89,7 @@ namespace J3DModelViewer.ViewModel
 
         private bool m_showPivot;
         private bool m_showGrid;
+        private bool m_animateLight;
         private bool m_showBoundingBox;
         private bool m_showBoundingSphere;
         private bool m_showBoneBoundingBox;
@@ -88,6 +100,7 @@ namespace J3DModelViewer.ViewModel
         {
             ShowPivot = Properties.Settings.Default.ShowPivot;
             ShowGrid = Properties.Settings.Default.ShowGrid;
+            AnimateLight = Properties.Settings.Default.AnimateLight;
             ShowBoundingBox = Properties.Settings.Default.ShowBoundingBox;
             ShowBoundingSphere = Properties.Settings.Default.ShowBoundingSphere;
             ShowBoneBoundingBox = Properties.Settings.Default.ShowBoneBoundingBox;
@@ -99,6 +112,7 @@ namespace J3DModelViewer.ViewModel
         {
             Properties.Settings.Default.ShowPivot = ShowPivot;
             Properties.Settings.Default.ShowGrid = ShowGrid;
+            Properties.Settings.Default.AnimateLight = AnimateLight;
             Properties.Settings.Default.ShowBoundingBox = ShowBoundingBox;
             Properties.Settings.Default.ShowBoundingSphere = ShowBoundingSphere;
             Properties.Settings.Default.ShowBoneBoundingBox = ShowBoneBoundingBox;
