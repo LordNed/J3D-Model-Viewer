@@ -1,3 +1,10 @@
 [submodule "JStudio"]
 	path = JStudio
 	url = https://github.com/LordNed/JStudio.git
+[submodule "WCommon"]
+	path = WCommon
+	url = https://github.com/LordNed/WCommon.git
+[submodule "WArchiveTools"]
+	path = WArchiveTools
+	url = https://github.com/LordNed/WArchive-Tools.git
+	branch = ISO_Opening_Experiments

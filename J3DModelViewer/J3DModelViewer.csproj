@@ -91,9 +91,6 @@
     <Reference Include="WArchiveTools">
       <HintPath>..\lib\WArchiveTools.dll</HintPath>
     </Reference>
-    <Reference Include="WCommon">
-      <HintPath>..\lib\WCommon.dll</HintPath>
-    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -128,10 +125,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\GXLightMaskConverter.cs" />
+    <Compile Include="Converters\VertexFormatDataTypeConverter.cs" />
     <Compile Include="Framework\FrameBuffer.cs" />
     <Compile Include="Framework\LineBatcher.cs" />
     <Compile Include="Framework\RelayCommand.cs" />
     <Compile Include="Framework\ScreenspaceQuad.cs" />
+    <Compile Include="ViewModel\MaterialEditorViewModel.cs" />
+    <Compile Include="View\InfoTab.xaml.cs">
+      <DependentUpon>InfoTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PreviewTab.xaml.cs">
+      <DependentUpon>PreviewTab.xaml</DependentUpon>
+    </Compile>
+    <Page Include="View\InfoTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\J3DEnums.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -149,6 +163,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\PreviewTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
@@ -170,12 +188,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <Resource Include="resources\application_icon.ico" />
-    <Content Include="Framework\EditorCube.obj">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Framework\EditorCube.mtl">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="resources\shaders\UnlitTexture.frag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -238,6 +250,10 @@
     <ProjectReference Include="..\JStudio\JStudio.csproj">
       <Project>{b90410ae-bb67-4d7a-b4f5-7209cb357a44}</Project>
       <Name>JStudio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WCommon\WCommon.csproj">
+      <Project>{e8af46cc-76dc-4541-a578-5067ead07087}</Project>
+      <Name>WCommon</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
