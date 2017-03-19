@@ -3,6 +3,8 @@ This project uses the JStudio library to load .bmd and .bdl models and apply bon
 
 ![Link opening a chest](http://i.imgur.com/0BRD2hb.png)
 
+# Controls
+Navigate the 3D Viewport by first clicking on the viewport so that it has focus. Then, holding down right mouse button and using WASD will allow you to fly around the scene. 
 
 # Dependencies (Included)
 * [JStudio](https://github.com/LordNed/JStudio)
@@ -19,9 +21,7 @@ This project uses the JStudio library to load .bmd and .bdl models and apply bon
 These two options allow you to open a .bmd, or .bdl model. The additive option will replace all currently loaded models, while Open Additive will additively load the other model (for situations where there may be multiple models put together). The viewer does not currently support bone merging techniques so loading Link's sword will not put it in his hand.
 
 `File > Load Animation`
-This option allows you to load a bone animation (.bck) or a "Texture" (uv) animation (.btk). When bone animations are loaded, they will show up in the right hand column under "Bone Animations", it should list the animation name, whether or not it is intended to loop in game, its length in seconds and frames, and its internal version number (such as "bck1"). Clicking on the different animations in the list will switch which one the model plays. There is currently no way to deselect all animations once an animation is loaded, so you will have to close and re-open the model!
-
-There is currently no UI for selecting different material animations that have been loaded either.
+This option allows you to load a bone animation (.bck) or a "Texture" (uv) animation (.btk). When animations are loaded, they will show up in the right hand column and it should list the animation name, whether or not it is intended to loop in game, its length in seconds and frames, and its internal version number (such as "bck1"). Clicking on the different animations in the list will switch which one the model plays.
 
 `File > Close`
 This simply closes the opened models and unloads any animations.
