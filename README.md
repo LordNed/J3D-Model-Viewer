@@ -1,7 +1,7 @@
 # J3D-Model-Viewer
 This project uses the JStudio library to load .bmd and .bdl models and apply bone and texture animations to them. It also emulates lighting and modification of the TEV Color and TEV kColor registers, useful in emulating effects in many of the games that support .bmd/.bdl.
 
-![Link opening a chest](http://i.imgur.com/0BRD2hb.png)
+![Link backstepping](https://camo.githubusercontent.com/a96a5f17d0152dc76d4b77670ae093696949bcc7/687474703a2f2f692e696d6775722e636f6d2f395845744c4c4b2e706e67)
 
 # Controls
 Navigate the 3D Viewport by first clicking on the viewport so that it has focus. Then, holding down right mouse button and using WASD will allow you to fly around the scene. 
