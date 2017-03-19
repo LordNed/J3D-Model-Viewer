@@ -47,8 +47,8 @@
                 <Separator/>
                 <!-- <MenuItem Header="_Export...">
                     <MenuItem Header="Export Mesh(es) to .obj" Command="{Binding Path=ExportMeshesToObjCommand}" IsEnabled="{Binding Path=HasLoadedModel}"/>
-                </MenuItem> -->
-                <Separator/>
+                </MenuItem> 
+                <Separator/> -->
                 <MenuItem Header="_Exit" Command="{Binding Path=ExitApplicationCommand}"/>
             </MenuItem>
 
