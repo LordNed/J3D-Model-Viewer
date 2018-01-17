@@ -142,7 +142,7 @@ namespace J3DModelViewer.ViewModel
             ofd.ShowPlacesList = true;
 
             // If they haven't loaded any models, they can't load any of the associated animation data.
-            string allSupportedExtensions = "*.bmd,*.bdl,*.bck, *.btk, *.bmt";
+            string allSupportedExtensions = "*.bmd,*.bdl,*.bck, *.btk, *.brk, *.bmt";
             string onlyModelExtensions = "*.bmd, *.bdl";
 
             string extensions = HasLoadedModel ? allSupportedExtensions : onlyModelExtensions;
@@ -240,6 +240,19 @@ namespace J3DModelViewer.ViewModel
 
                             // Automatically play the latest animation loaded.
                             MainModel.SetMaterialAnimation(fileName);
+                        }
+                    }
+                    break;
+
+                case ".brk":
+                    {
+                        if (MainModel != null)
+                        {
+                            if (unloadExisting)
+                                MainModel.UnloadRegisterAnimations();
+                            MainModel.LoadRegisterAnim(filePath);
+
+                            MainModel.SetRegisterAnimation(fileName);
                         }
                     }
                     break;
