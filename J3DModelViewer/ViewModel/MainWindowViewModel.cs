@@ -1,4 +1,4 @@
-﻿using OpenTK.Graphics.OpenGL;
+﻿ using OpenTK.Graphics.OpenGL;
 using OpenTK;
 using WindEditor;
 using System.IO;
@@ -355,8 +355,9 @@ namespace J3DModelViewer.ViewModel
             {
                 j3d.SetHardwareLight(0, m_mainLight);
                 j3d.Tick(deltaTime);
-                j3d.Render(m_renderCamera.ViewMatrix, m_renderCamera.ProjectionMatrix, Matrix4.Identity);
-            }
+                j3d.Render(m_renderCamera.ViewMatrix, m_renderCamera.ProjectionMatrix, Matrix4.Identity, true, false);
+                j3d.Render(m_renderCamera.ViewMatrix, m_renderCamera.ProjectionMatrix, Matrix4.Identity, false, true);
+			}
 
             if (m_modelRenderOptions.ShowPivot)
             {
