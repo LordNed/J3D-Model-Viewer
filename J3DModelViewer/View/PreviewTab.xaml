@@ -28,6 +28,8 @@
                         <RowDefinition Height="*" MinHeight="20"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*" MinHeight="20"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*" MinHeight="20"/>
                     </Grid.RowDefinitions>
 
                     <DockPanel Grid.Row="0">
@@ -53,6 +55,21 @@
                     </DockPanel>
 
                     <DataGrid Grid.Row="3" ItemsSource="{Binding Path=MainModel.MaterialAnimations}" SelectedItem="{Binding Path=MainModel.CurrentMaterialAnimation}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="*"/>
+                            <DataGridComboBoxColumn Header="Loop Mode" ItemsSource="{Binding Source={StaticResource J3DAnimLoopEnumData}}" SelectedValueBinding="{Binding Path=LoopMode}" Width="Auto"/>
+                            <DataGridTextColumn Header="Length" Binding="{Binding Path=AnimLengthInSeconds}" Width="Auto"/>
+                            <DataGridTextColumn Header="Type" Binding="{Binding Path=AnimType}" Width="Auto"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <DockPanel Grid.Row="4">
+                        <Label Content="Number of loaded Register Animations:"/>
+                        <Label Content="{Binding Path=MainModel.RegisterAnimations.Count}"/>
+                        <Button Content="Deselect" HorizontalAlignment="Right" Margin="3" Padding="5,0,5,0" Command="{Binding Path=DeselectRegisterAnimationCommand}"/>
+                    </DockPanel>
+
+                    <DataGrid Grid.Row="5" ItemsSource="{Binding Path=MainModel.RegisterAnimations}" SelectedItem="{Binding Path=MainModel.CurrentRegisterAnimation}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="*"/>
                             <DataGridComboBoxColumn Header="Loop Mode" ItemsSource="{Binding Source={StaticResource J3DAnimLoopEnumData}}" SelectedValueBinding="{Binding Path=LoopMode}" Width="Auto"/>

@@ -37,6 +37,7 @@ namespace J3DModelViewer.ViewModel
         public ICommand ExportMeshesToObjCommand { get { return new RelayCommand(x => OnUserRequestExportMeshes()); } }
         public ICommand DeselectBoneAnimationCommand { get { return new RelayCommand(x => { if (MainModel != null) MainModel.SetBoneAnimation(null); }, x => MainModel != null && MainModel.CurrentBoneAnimation != null); } }
         public ICommand DeselectMaterialAnimationCommand { get { return new RelayCommand(x => { if (MainModel != null) MainModel.SetMaterialAnimation(null); }, x => MainModel != null && MainModel.CurrentMaterialAnimation != null); } }
+        public ICommand DeselectRegisterAnimationCommand { get { return new RelayCommand(x => { if (MainModel != null) MainModel.SetRegisterAnimation(null); }, x => MainModel != null && MainModel.CurrentRegisterAnimation != null); } }
         public ICommand DeselectExternalMaterialCommand { get { return new RelayCommand(x => { if (MainModel != null) MainModel.SetExternalMaterial(null); }, x => MainModel != null && MainModel.CurrentExternalMaterial != null); } }
         #endregion
 
