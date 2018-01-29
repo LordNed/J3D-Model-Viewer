@@ -87,7 +87,17 @@ namespace J3DModelViewer.ViewModel
             }
         }
 
-        private bool m_showPivot;
+		public bool DepthPrePass
+		{
+			get { return m_depthPrePass; }
+			set
+			{
+				m_depthPrePass = value;
+				OnPropertyChanged("DepthPrePass");
+			}
+		}
+
+		private bool m_showPivot;
         private bool m_showGrid;
         private bool m_animateLight;
         private bool m_showBoundingBox;
@@ -95,8 +105,9 @@ namespace J3DModelViewer.ViewModel
         private bool m_showBoneBoundingBox;
         private bool m_showBoneBoundingSphere;
         private bool m_showBones;
+        private bool m_depthPrePass;
 
-        public ModelRenderOptionsViewModel()
+		public ModelRenderOptionsViewModel()
         {
             ShowPivot = Properties.Settings.Default.ShowPivot;
             ShowGrid = Properties.Settings.Default.ShowGrid;
@@ -106,9 +117,10 @@ namespace J3DModelViewer.ViewModel
             ShowBoneBoundingBox = Properties.Settings.Default.ShowBoneBoundingBox;
             ShowBoneBoundingSphere = Properties.Settings.Default.ShowBoneBoundingSphere;
             ShowBones = Properties.Settings.Default.ShowBones;
-        }
+			DepthPrePass = Properties.Settings.Default.DepthPrePass;
+		}
 
-        public void SaveSettings()
+		public void SaveSettings()
         {
             Properties.Settings.Default.ShowPivot = ShowPivot;
             Properties.Settings.Default.ShowGrid = ShowGrid;
@@ -118,7 +130,8 @@ namespace J3DModelViewer.ViewModel
             Properties.Settings.Default.ShowBoneBoundingBox = ShowBoneBoundingBox;
             Properties.Settings.Default.ShowBoneBoundingSphere = ShowBoneBoundingSphere;
             Properties.Settings.Default.ShowBones = ShowBones;
-            Properties.Settings.Default.Save();
+            Properties.Settings.Default.DepthPrePass = DepthPrePass;
+			Properties.Settings.Default.Save();
         }
 
         protected void OnPropertyChanged(string propName)

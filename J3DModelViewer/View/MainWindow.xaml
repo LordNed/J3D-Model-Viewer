@@ -56,6 +56,8 @@
                 <MenuItem Header="Show _Pivot" IsCheckable="True" IsChecked="{Binding Path=ViewOptions.ShowPivot}"/>
                 <MenuItem Header="Show _Grid" IsCheckable="True" IsChecked="{Binding Path=ViewOptions.ShowGrid}"/>
                 <Separator/>
+                <MenuItem Header="Render Depth PrePass" IsCheckable="True" IsChecked="{Binding Path=ViewOptions.DepthPrePass}"/>
+                <Separator/>
                 <MenuItem Header="Animate _Light" IsCheckable="True" IsChecked="{Binding Path=ViewOptions.AnimateLight}"/>
                 <Separator/>
                 <MenuItem Header="Show Bounds (_Box)" IsCheckable="True" IsChecked="{Binding Path=ViewOptions.ShowBoundingBox}"/>

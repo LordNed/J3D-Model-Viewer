@@ -354,7 +354,17 @@ namespace J3DModelViewer.ViewModel
                 DrawFixedGrid();
             }
 
-            foreach (var j3d in m_loadedModels)
+			if(m_modelRenderOptions.DepthPrePass)
+			{
+				foreach (var j3d in m_loadedModels)
+				{
+					// Render a depth-only pre pass. We need to tell it to render translucent and opaque objects so that
+					// they both write in to the depth buffer (it's a specific pre-pass so they should)
+					j3d.Render(m_renderCamera.ViewMatrix, m_renderCamera.ProjectionMatrix, Matrix4.Identity, true, true, true);
+				}
+			}
+
+			foreach (var j3d in m_loadedModels)
             {
                 j3d.SetHardwareLight(0, m_mainLight);
                 j3d.Tick(deltaTime);
