@@ -274,6 +274,8 @@ namespace J3DModelViewer.ViewModel
                     break;
             }
 
+			// m_loadedModels.Sort((x,y) => x.Name.CompareTo(y.Name));
+
             if (PropertyChanged != null)
             {
                 PropertyChanged.Invoke(this, new PropertyChangedEventArgs("MainModel"));
@@ -356,8 +358,12 @@ namespace J3DModelViewer.ViewModel
             {
                 j3d.SetHardwareLight(0, m_mainLight);
                 j3d.Tick(deltaTime);
-                j3d.Render(m_renderCamera.ViewMatrix, m_renderCamera.ProjectionMatrix, Matrix4.Identity, true, false);
-                j3d.Render(m_renderCamera.ViewMatrix, m_renderCamera.ProjectionMatrix, Matrix4.Identity, false, true);
+				j3d.Render(m_renderCamera.ViewMatrix, m_renderCamera.ProjectionMatrix, Matrix4.Identity, true, false);
+			}
+			foreach (var j3d in m_loadedModels)
+			{
+				// Do a second render pass after all objects to render translucent ones.
+				j3d.Render(m_renderCamera.ViewMatrix, m_renderCamera.ProjectionMatrix, Matrix4.Identity, false, true);
 			}
 
             if (m_modelRenderOptions.ShowPivot)
